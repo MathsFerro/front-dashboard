@@ -16,19 +16,26 @@
       <input matInput placeholder="Ex. 11976005294" [mask]=phoneMask  formControlName="phoneNumber">
     </mat-form-field>
 
-    <div class="w-100"></div>
-
     <mat-form-field appearance="fill" class="col">
       <mat-label>Email</mat-label>
       <input matInput type="email" placeholder="Ex. matheus@gmail.com" formControlName="email">
     </mat-form-field>
 
+    <div class="w-100"></div>
+
+    
+    <mat-form-field appearance="fill" class="col">
+      <mat-label>Seila</mat-label>
+      <input matInput type="text" placeholder="Ex. matheus@gmail.com" formControlName="email">
+    </mat-form-field>
 
     <mat-action-row>
-      <button mat-flat-button class="bg-danger" (click)="buildFormGroup()">Limpar</button>
-      <button mat-flat-button class="d-flex align-items-center bg-success" (click)="submitForm()">
-        Buscar
-      <mat-icon>search</mat-icon>
+      <button mat-flat-button class="bg-danger" (click)="buildFormGroup()"><mat-icon>delete</mat-icon></button>
+      <button mat-flat-button class="d-flex align-items-center bg-success container-search-button" (click)="submitForm()">
+        <div class="d-flex align-items-center search-button">
+            Buscar
+          <mat-icon>search</mat-icon>
+        </div>
       </button>
       
     </mat-action-row>

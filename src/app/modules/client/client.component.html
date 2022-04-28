@@ -1,13 +1,15 @@
-<div class="container">
+<div>
   <div class="d-flex flex-column">
     <div class="d-flex align-items-center justify-content-between">
-      <h1>Cliente</h1>
+      <h1>Clientes</h1>
       <button routerLink="add-client" class="bg-success" mat-button aria-label="Example icon button with a delete icon">
         Adicionar novo cliente     
       </button>
     </div>
-    <hr/>
+    <!--<hr/>-->
     <app-search-client></app-search-client>
-    <app-table-client></app-table-client>
+    <app-table-client
+      [dataSource]="dataSource"
+    ></app-table-client>
   </div>
 </div>

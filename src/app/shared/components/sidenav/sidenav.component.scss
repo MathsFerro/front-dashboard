@@ -10,6 +10,13 @@
     box-shadow: 0px 0px 4px 0px #000000;
     z-index: 2;
 
+    .user-settings {
+      p {
+        margin: 0px;
+        margin-right: 20px;
+      }
+    }
+
     mat-icon {
       transition: filter .2s;
 
@@ -46,4 +53,8 @@
       flex-direction: column;
     }
   }
+}
+
+.selected {
+  background-color: #c2185ca6;
 }

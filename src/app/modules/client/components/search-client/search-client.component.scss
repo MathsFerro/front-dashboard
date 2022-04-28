@@ -3,6 +3,20 @@
   width: 70vw;
 }*/
 
+.mat-expansion-panel {
+  margin-top: 20px;
+}
+
 .mr-20 {
   margin-right: 20px;
+}
+
+.container-search-button {
+
+  .search-button {
+    mat-icon {
+      margin-top: 2px;
+      margin-left: 8px;
+    }
+  }
 }

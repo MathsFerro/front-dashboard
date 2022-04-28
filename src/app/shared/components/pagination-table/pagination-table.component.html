@@ -1,0 +1,7 @@
+<mat-paginator 
+  [length]="pageable.totalPages"
+  [pageSize]="pageable.size"
+  [showFirstLastButtons]="true"
+  (page)="currentPage.emit($event.pageIndex)"
+>
+</mat-paginator>

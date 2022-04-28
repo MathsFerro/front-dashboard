@@ -1,0 +1,12 @@
+
+<div class="d-flex justify-content-between align-items-center header-mat-dialog">
+<h1 mat-dialog-title>
+  Equipamentos do {{data.name}}
+</h1>
+
+  <mat-icon mat-dialog-close>close</mat-icon>
+
+</div>
+<div mat-dialog-content style="width: 75vw;">
+  <app-table-equipment  [dataSource]="dataSource"></app-table-equipment>
+</div>

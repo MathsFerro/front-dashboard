@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaskUtils } from '../../../../shared/utils/MaskUtils';
 
@@ -11,7 +11,6 @@ export class SearchClientComponent implements OnInit {
 
   public phoneMask = MaskUtils["phoneMask"];
   public formGroup: FormGroup;
-
   public expanded: boolean = false;
 
   constructor(
@@ -35,7 +34,7 @@ export class SearchClientComponent implements OnInit {
   submitForm() {
     if(!this.formGroup.valid)
       return;
-    console.log(this.expanded);
+
     this.expanded = false;
     console.log("submit")
   }
