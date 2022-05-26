@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/modules/shared.module';
 import { AngularMaterialModule } from './shared/modules/angular-material.module';
 import { PaginationTableComponent } from './shared/components/pagination-table/pagination-table.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PaginationTableComponent } from './shared/components/pagination-table/p
     NgbAlertModule,
     ReactiveFormsModule,
     SharedModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,14 +2,22 @@
   <div class="d-flex flex-column">
     <div class="d-flex align-items-center justify-content-between">
       <h1>Clientes</h1>
-      <button routerLink="add-client" class="bg-success" mat-button aria-label="Example icon button with a delete icon">
+      <button (click)="openAddModal()" class="bg-success" mat-button aria-label="Example icon button with a delete icon">
         Adicionar novo cliente     
       </button>
     </div>
     <!--<hr/>-->
     <app-search-client></app-search-client>
     <app-table-client
-      [dataSource]="dataSource"
+      [dataSource]="dataSource.content"
     ></app-table-client>
+
+    <app-pagination-table
+      (currentPage)="searchByPage($event)"
+      [pageable]="dataSource"
+    ></app-pagination-table>
+
   </div>
 </div>
+
+<!--routerLink="add-client"-->

@@ -1,7 +1,5 @@
-export class Pageable<T> {
+import { FilterPageable } from "./FilterPageable";
+
+export class Pageable<T> extends FilterPageable {
   content: T;
-  size: number;
-  page: number;
-  totalElements: number;
-  totalPages: number;
 }

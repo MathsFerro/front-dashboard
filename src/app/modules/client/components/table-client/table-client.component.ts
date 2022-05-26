@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { Client } from '../../../../shared/models/Client';
+import { ClientModule } from '../../client.module';
 import { DialogClientShowEquipmentComponent } from '../dialog-client-show-equipment/dialog-client-show-equipment.component';
+import { DialogFormClientComponent } from '../dialog-form/dialog-form-client.component';
 
 
 @Component({
@@ -21,12 +23,18 @@ export class TableClientComponent implements OnInit {
   }
 
   handleShowEquipments(client: Client) {
+    console.log(client);
     this.matDialog.open(DialogClientShowEquipmentComponent, {
-      data: client
+      data: client,
+      disableClose: true
     });
   }
 
-  searchByCurrentPage(event: any) {
-    console.log(event);
+  edit(client: Client) {
+    this.matDialog.open(DialogFormClientComponent, {
+      data: client,
+      disableClose: true
+    })
   }
+
 }
