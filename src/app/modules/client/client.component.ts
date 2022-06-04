@@ -14,7 +14,7 @@ import { ClientService } from './services/client.service';
 export class ClientComponent implements OnInit {
 
   public dataSource: Pageable<Client[]> = new Pageable<Client[]>();
-  private filter: FilterPageable = new FilterPageable();
+  private filterPageable: FilterPageable = new FilterPageable();
 
   constructor(
     private clientService: ClientService, 
@@ -24,12 +24,14 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initialFilterPageable();
     this.findAll();
   }
 
   findAll() {
-    this.clientService.findAll(this.filter).subscribe(data => {
+    this.clientService.findAll(this.filterPageable).subscribe(data => {
       this.dataSource = data;
+      console.log(this.dataSource)
     }, error => console.log(error));
   }
 
@@ -38,7 +40,7 @@ export class ClientComponent implements OnInit {
   }
 
   searchByPage(currentPage: any) {
-    this.filter.page = currentPage;
+    this.filterPageable.page = currentPage;
     this.findAll();
   }
 
@@ -47,5 +49,9 @@ export class ClientComponent implements OnInit {
       data: null,
       disableClose: true
     });
+  }
+
+  private initialFilterPageable() {
+    this.filterPageable.page = 0;
   }
 }

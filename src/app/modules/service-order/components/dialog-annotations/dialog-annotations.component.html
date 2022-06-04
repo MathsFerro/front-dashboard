@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Anotações</h1>
+<div mat-dialog-content style="min-width:65vw;">
+  <div class="row" [formGroup]="formGroup">
+    <ng-container formArrayName="annotations">
+      <ng-container *ngFor="let annotation of annotations.controls; index as i">
+        <div [formGroupName]="i">
+          <mat-form-field  appearance="outline" class="w-100">
+            <mat-label>Anotação {{ i+1 }}</mat-label>
+            <textarea 
+              matInput 
+              formControlName="description"
+            ></textarea>
+          </mat-form-field> 
+        </div>
+
+
+      </ng-container>
+
+    </ng-container> 
+  </div>
+  
+  <button mat-raised-button class=" bg-success" (click)="addAnnotation()" type="button">
+    Adicionar
+    <mat-icon style="margin-bottom: 1px;">add</mat-icon>
+  </button>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button class="bg-success" [mat-dialog-close]="annotations.value">OK</button>
+</div>
+
+<!--
+
+<div *ngFor="let annotation of data; index as i">
+          <mat-form-field appearance="outline" class="col" >
+            <mat-label></mat-label>
+            <input matInput placeholder="" name="" formControlName="annotation" >
+            <mat-icon matSuffix>subject</mat-icon>
+          </mat-form-field>
+          <button (click)="removeAnnotation(i)">X</button>
+        </div>
+
+
+-->

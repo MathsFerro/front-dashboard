@@ -20,6 +20,7 @@ export class TableClientComponent implements OnInit {
   constructor(private matDialog: MatDialog) { }
 
   ngOnInit(): void {
+
   }
 
   handleShowEquipments(client: Client) {

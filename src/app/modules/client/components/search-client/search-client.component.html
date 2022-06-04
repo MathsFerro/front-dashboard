@@ -6,28 +6,25 @@
   </mat-expansion-panel-header>
 
   <form [formGroup]="formGroup" class="row">
-    <mat-form-field appearance="fill" class="col">
+    <mat-form-field appearance="outline" class="col">
       <mat-label>Nome</mat-label>
       <input matInput placeholder="Ex. Matheus" formControlName="name">
+      <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="col">
+    <mat-form-field appearance="outline" class="col">
       <mat-label>Celular</mat-label>
       <input matInput placeholder="Ex. 11976005294" [mask]=phoneMask  formControlName="phoneNumber">
+      <mat-icon matSuffix>phone</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="col">
+    <mat-form-field appearance="outline" class="col">
       <mat-label>Email</mat-label>
       <input matInput type="email" placeholder="Ex. matheus@gmail.com" formControlName="email">
+      <mat-icon matSuffix>email</mat-icon>
     </mat-form-field>
 
     <div class="w-100"></div>
-
-    
-    <mat-form-field appearance="fill" class="col">
-      <mat-label>Seila</mat-label>
-      <input matInput type="text" placeholder="Ex. matheus@gmail.com" formControlName="email">
-    </mat-form-field>
 
     <mat-action-row>
       <button mat-flat-button class="bg-danger" (click)="buildFormGroup()"><mat-icon>delete</mat-icon></button>

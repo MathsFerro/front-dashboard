@@ -12,60 +12,7 @@ import { Client } from '../../../shared/models/Client';
 })
 export class ClientService {
 
-  private url: string = "http://localhost:8080/api/v1/client";
-
-  private mock: Pageable<Client[]> = {
-    page: 0,
-    totalElements: 10,
-    totalPages: 2,
-    size: 5,
-    content: [
-      {
-        id: 1,
-        name: "Matheus Ferro Raimundo",
-        email: "matheusferroraimundo@gmail.com",
-        phoneNumber: "11976005294",
-        address: {
-          cep: "",
-          city: "",
-          logradouro: "",
-          uf: ""
-        },
-        equipments: [
-          { id: 1, equipmentType: EquipmentType.COMPUTADOR },
-          { id: 2, equipmentType: EquipmentType.NOTEBOOK }
-        ]
-      },
-      {
-        id: 2,
-        name: "Roberto Mauro Rodero Raimundo",
-        email: "roberto@gmail.com",
-        phoneNumber: "119999999",
-        address: {
-          cep: "",
-          city: "",
-          logradouro: "",
-          uf: ""
-        },
-        equipments: []
-      },
-      {
-        id: 3,
-        name: "Ferro Raimundo",
-        email: "ferro@gmail.com",
-        phoneNumber: "119999999",
-        address: {
-          cep: "",
-          city: "",
-          logradouro: "",
-          uf: ""
-        },
-        equipments: [
-          { id: 3, equipmentType: EquipmentType.IMPRESSORA }
-        ]
-      }
-    ]
-  };
+  private url: string = "http://localhost:8080/v1/client";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -82,8 +29,8 @@ export class ClientService {
     this.mock.push(client);
   }*/
 
-  findAllMock(): Pageable<Client[]> {
-    return this.mock;
+  findClientsByName(name: string): Observable<Client[]> {
+    return this.httpClient.get<Client[]>(`${this.url}/find-by-name/${name}`);
   }
 
   findByName(name: number): Observable<Client[]> {

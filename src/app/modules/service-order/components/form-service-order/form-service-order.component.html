@@ -1,0 +1,216 @@
+<mat-card class="example-card">
+  
+  <mat-card-title-group>
+    <mat-card-title>	 
+      <mat-icon routerLink="/service-order">arrow_back</mat-icon> 
+      Nova Ordem de Serviço
+    
+    </mat-card-title>
+    <mat-icon (click)="openModalAnnotations()" class="button-notes">notes</mat-icon>
+  </mat-card-title-group>
+</mat-card>
+
+
+<form [formGroup]="formGroup">
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Cliente
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ this.formGroup.value.client.name }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="row" formGroupName="client">
+      <mat-form-field appearance="outline" class="col" >
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="" formControlName="name" formContro>
+        <mat-icon matSuffix>person</mat-icon>
+    
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Whats / Telefone</mat-label>
+        <input matInput placeholder="" type="number"  formControlName="phoneNumber" autocomplete="off">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    
+    
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="" formControlName="email"  autoComplete='none'>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>CPF / CNPJ</mat-label>
+        <input matInput placeholder="" type="number"  formControlName="cpfCnpj" autoComplete='none'>
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+      <div class="w-100"></div>
+
+      <mat-form-field appearance="outline" class="col" formGroupName="address" >
+        <mat-label>CEP</mat-label>
+        <input matInput placeholder="" (ngModelChange)="findCep()" [mask]=cepMask type="number"   formControlName="cep"  autoComplete='none'>
+        <mat-icon matSuffix>place</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Cidade</mat-label>
+        <input matInput placeholder="" formControlName="city" autoComplete='none'>
+        <mat-icon matSuffix>location_city</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Estado</mat-label>
+        <input matInput placeholder="" formControlName="uf" autoComplete='none'>
+        <mat-icon matSuffix>location_city</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Logradouro</mat-label>
+        <input matInput placeholder="" formControlName="logradouro" autoComplete='none'>
+        <mat-icon matSuffix>call_merge</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Complemento</mat-label>
+        <input matInput placeholder="" formControlName="complement" autoComplete='none'>
+        <mat-icon matSuffix>home</mat-icon>
+      </mat-form-field>
+
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title >
+        Equipamento
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row" formGroupName="equipment">
+      <mat-form-field appearance="outline" class="col-lg-2" >
+        <mat-label>Número de Série</mat-label>
+        <input matInput placeholder="" formControlName="serialNumber" autoComplete='none'>
+        <mat-icon matSuffix>desktop_windows</mat-icon>
+      </mat-form-field>  
+    
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Descrição</mat-label>
+        <input matInput placeholder="" formControlName="description" autoComplete='none'>
+        <mat-icon matSuffix>subject</mat-icon>
+      </mat-form-field> 
+    
+      <mat-form-field appearance="outline" class="col-lg-2">
+        <mat-label>Tipo do Equipamento</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>    
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title>
+        Defeito / Acessórios / Garantia
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Acessórios</mat-label>
+        <input matInput placeholder="" formControlName="accessory" autoComplete='none'>
+        <mat-icon matSuffix>library_books</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-lg-2">
+        <mat-label>Garantia</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> 
+
+      <div class="w-100"></div>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Defeito</mat-label>
+        <textarea matInput formControlName="defect"></textarea>
+      </mat-form-field> 
+      <div class="w-100"></div>
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Diagnostico</mat-label>
+        <textarea matInput formControlName="diagnostic"></textarea>        
+      </mat-form-field>   
+    </div> 
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title>
+        Serviços / Peças
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container formArrayName="billings">
+      <ng-container *ngFor="let billing of billings.controls; index as i">
+        <div [formGroupName]="i" class="row">
+          <mat-form-field appearance="outline" class="col">
+            <mat-label>Descrição do Serviço</mat-label>
+            <input matInput placeholder="" 
+            formControlName="description" autoComplete='none'>
+            <mat-icon matSuffix>subject</mat-icon>
+          </mat-form-field> 
+
+          <mat-form-field appearance="outline" class="col-lg-2">
+            <mat-label>Preço</mat-label>
+            <input 
+              matInput 
+              placeholder=""
+              type="number" 
+              formControlName="value" 
+              autoComplete='none'
+            >
+            <mat-icon matSuffix>attach_money</mat-icon>
+          </mat-form-field>
+
+          <mat-icon style="margin-top: 15px; margin-right: 30px;" (click)="deleteBilling(i)">
+            delete_forever</mat-icon>
+        </div>
+      </ng-container> 
+    </ng-container> 
+    <div class="d-flex justify-content-between align-items-center">
+      <button mat-raised-button class=" bg-success" (click)="addBilling()" type="button">
+        Adicionar
+        <mat-icon style="margin-bottom: 1px;">add</mat-icon>
+      </button>
+      <div class=" container-total d-flex align-items-center">
+
+        <strong style="font-size:25px;">R$ {{ valueBillings }}</strong>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" class="custom-container-button"  type="button">
+      <div class="d-flex align-items-center custom-button">
+        <mat-icon>delete</mat-icon>
+      </div>
+    </button>
+    <button mat-raised-button class=" bg-primary custom-container-button"  type="button">
+      <div class="d-flex align-items-center custom-button view">
+        Visualizar
+        <mat-icon>insert_drive_file</mat-icon>
+      </div>
+    </button>
+    <button mat-raised-button class="bg-success container-button-save" (click)="onSubmit()">
+      <div class="d-flex align-items-center save-button">
+        Salvar
+        <mat-icon>save</mat-icon>
+      </div>
+    </button>
+  </div>
+
+</form>

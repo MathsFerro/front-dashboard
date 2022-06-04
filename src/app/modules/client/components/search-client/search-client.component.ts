@@ -11,7 +11,7 @@ export class SearchClientComponent implements OnInit {
 
   public phoneMask = MaskUtils["phoneMask"];
   public formGroup: FormGroup;
-  public expanded: boolean = false;
+  public expanded: boolean = true;
 
   constructor(
     private fb: FormBuilder

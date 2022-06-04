@@ -1,11 +1,12 @@
-import { Equipment } from "src/app/shared/models/Equipment";
 import { Address } from "./Address";
 
 export class Client {
-  id: number;
+  id: string;
   name: string;
-  phoneNumber: string;
-  email: string;
   address: Address;
-  equipments: Equipment[];
+  phoneNumber: string;
+  personType?: string; // TODO trocar para enum
+  cpfCnpj: string;
+  email: string;
+  registeredAt?: Date
 }

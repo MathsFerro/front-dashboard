@@ -14,6 +14,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTreeModule } from '@angular/material/tree';
 
 @NgModule({
   declarations: [],
@@ -33,6 +37,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatBadgeModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatStepperModule,
+    MatTreeModule,
   ]
 })
 export class AngularMaterialModule { }

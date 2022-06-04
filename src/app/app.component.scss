@@ -8,3 +8,43 @@
 ::ng-deep.mat-form-field.mat-focused .mat-form-field-label {
   color: rgba(255,255,255,.3) !important;
 }
+
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0px;
+}
+
+// Textinho que sobe
+:host ::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: rgb(255, 255, 255) !important;
+ }
+
+// Texto
+::ng-deep .mat-form-field-empty.mat-form-field-label {
+  //color: #eeeeee;
+}
+
+// Input invalido
+/* Change label color on focused */
+/* underline border color on focused */
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid {
+  color: rgba(255, 0, 0, 0.753);
+  .mat-form-field-outline-thick {
+    color: rgba(255, 0, 0, 0.753);
+  }
+}
+
+// nao funfa
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-valid {
+  color: green;
+}
+
+// Outline do input
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  //color: rgba(255, 255, 255, 0.384);
+}
+
+// Quando selecionado
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: white;
+}

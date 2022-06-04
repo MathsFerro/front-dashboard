@@ -1,11 +1,20 @@
+<mat-card class="example-card">
+  <mat-card-title-group>
+    <mat-card-title>	 
+      Clientes
+    </mat-card-title>
+    <button mat-raised-button color="primary" class="bg-success" routerLink="/client/add-client">
+      Adicionar Cliente
+    </button>
+ 
+  </mat-card-title-group>
+
+</mat-card>
+
+
 <div>
   <div class="d-flex flex-column">
-    <div class="d-flex align-items-center justify-content-between">
-      <h1>Clientes</h1>
-      <button (click)="openAddModal()" class="bg-success" mat-button aria-label="Example icon button with a delete icon">
-        Adicionar novo cliente     
-      </button>
-    </div>
+   
     <!--<hr/>-->
     <app-search-client></app-search-client>
     <app-table-client

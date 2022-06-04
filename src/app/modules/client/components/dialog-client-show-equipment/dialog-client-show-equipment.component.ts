@@ -15,7 +15,7 @@ export class DialogClientShowEquipmentComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Client) { }
 
   ngOnInit(): void {
-    this.dataSource = this.data.equipments;
+    //this.dataSource = this.data.equipments;
   }
 
 }

@@ -1,8 +1,8 @@
 .container-sidenav {
   display: flex;
+
   flex-direction: column;
 
-  height: 100%;
 
   mat-toolbar {
     background-color: #424242;
@@ -30,8 +30,10 @@
   mat-drawer-container {
     height: 100vh;
 
+
     mat-drawer {
-      
+
+      height: 100vh;
       background-color: #424242a8;//#c2185c3f;//#3f51b5e8;
       border-right: 0;
 
@@ -53,6 +55,11 @@
       flex-direction: column;
     }
   }
+}
+
+.container-x {
+  display: flex;
+  align-items: center;
 }
 
 .selected {

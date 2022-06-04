@@ -1,6 +1,7 @@
 export class Address {
-  cep: string;
+  cep: string
   logradouro: string;
-  uf: string;
   city: string;
+  uf: string;
+  complement?: string;
 }

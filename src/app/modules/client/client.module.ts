@@ -15,6 +15,7 @@ import { TableEquipmentComponent } from 'src/app/shared/components/table-equipme
 import { TableEquipmentModule } from 'src/app/shared/components/table-equipment/table-equipment.module';
 import { PaginationTableModule } from 'src/app/shared/components/pagination-table/pagination-table.module';
 import { DialogFormClientComponent } from './components/dialog-form/dialog-form-client.component';
+import { FormClientComponent } from './components/form-client/form-client.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DialogFormClientComponent } from './components/dialog-form/dialog-form-
     SearchClientComponent, 
     TableClientComponent, 
     DialogClientShowEquipmentComponent, 
-    DialogFormClientComponent
+    DialogFormClientComponent, 
+    FormClientComponent
   ],
   imports: [
     CommonModule,

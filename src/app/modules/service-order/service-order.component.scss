@@ -1,0 +1,17 @@
+h1 {
+  font-family: 'Poppins';
+  font-weight: 500;
+  margin: 0;
+}
+
+
+.mat-card-title-group{
+  display: flex;
+  align-items: center;
+  mat-card-title {
+    margin-bottom: 0px;
+  }
+  button {
+    margin-left: 20px;
+  }
+}
