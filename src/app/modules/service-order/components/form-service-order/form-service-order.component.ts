@@ -2,10 +2,13 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ClientService } from 'src/app/modules/client/services/client.service';
 import { Client } from 'src/app/shared/models/Client';
+import { AssuranceType } from 'src/app/shared/models/enums/AssuranceType';
+import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
+import { Equipment } from 'src/app/shared/models/Equipment';
 import { CepService } from 'src/app/shared/services/cep.service';
+import { EquipmentService } from 'src/app/shared/services/equipment.service';
 import { MaskUtils } from 'src/app/shared/utils/MaskUtils';
 import { ServiceOrderService } from '../../services/service-order.service';
 import { DialogAnnotationsComponent } from '../dialog-annotations/dialog-annotations.component';
@@ -18,27 +21,27 @@ import { Billing } from '../types/Billing';
 })
 export class FormServiceOrderComponent implements OnInit {
 
+  // Expansion Panels
+  public clientExpanded: boolean = true;
+  public equipmentExpanded: boolean = true;
+
+  // Mat Select
+  public assuranceTypeList: any[] = [];
+  public equipmentTypeList: any[] = [];
+  
+  public clientsRegistereds: Client[] = [];
+  public formGroup: FormGroup;
+
+  public equipmentClientList: Equipment[] = [];
   public cepMask = MaskUtils["cepMask"];
   public timeoutSearchClient: any;
+  
   private clientSelected: any;
-
-  clientsRegistereds: Client[] = [];
-
-  formGroup: FormGroup;
-
-  isVisibleCliente: boolean = true;
-  isVisibleEquipment: boolean = true;
-  isVisibleServiceOrder: boolean = true;
-
-  foods: any[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
 
   constructor(
     private service: ServiceOrderService,
     private clientService: ClientService,
+    private equipmentService: EquipmentService,
     private cepService: CepService,
     private dialog: MatDialog,
     private fb: FormBuilder
@@ -46,9 +49,50 @@ export class FormServiceOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadEquipmentTypeList();
+    this.loadAssuranceTypeList();
     this.buildForm();
-   
-    this.service.numberNextOS().subscribe(number => console.log(number));
+    this.getNumberNextOS();
+  }
+
+  get valueForm() {
+    return this.formGroup.value;
+  }
+
+  get billings(): FormArray {
+    return this.formGroup.controls['billings'] as FormArray;
+  }
+
+  get valueBillings() {
+    const billing = this.billings.value as Billing[];
+
+    if(billing.length===0)
+      return 0;
+
+    const numberArray = billing.map(item => item.value);  
+    return numberArray.reduce((acc, currentValue) => Number(acc) + Number(currentValue));
+  }
+
+  // Filtrar a lista q tiver description vazio
+  get filterBillingList() {
+    return null;
+  }
+
+  loadEquipmentTypeList() {
+    Object.entries(EquipmentType).forEach(([key, value]) => {
+      this.equipmentTypeList.push({ key, value });
+    });
+  }
+
+  loadAssuranceTypeList() {
+    Object.entries(AssuranceType).forEach(([key, value]) => {
+      this.assuranceTypeList.push({ key, value });
+    });
+  }
+
+  getNumberNextOS() {
+    this.service.numberNextOS()
+      .subscribe(number => console.log(number));
   }
 
   openModalAnnotations() {
@@ -63,6 +107,10 @@ export class FormServiceOrderComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formGroup.value);
+    if(this.formGroup.invalid)
+      return;
+
+      
   }
 
   buildForm() {
@@ -87,6 +135,7 @@ export class FormServiceOrderComponent implements OnInit {
         'serialNumber': [''],
         'equipmentType': ['']
       }),
+      'id': null,
       'accessory': [''],
       'defect': [''],
       'diagnostic': [''],
@@ -102,27 +151,6 @@ export class FormServiceOrderComponent implements OnInit {
         })
       ])
     });
-
-    console.log(this.formGroup.controls['billings'].value);
-  }
-
-  get billings(): FormArray {
-    return this.formGroup.controls['billings'] as FormArray;
-  }
-
-  get valueBillings() {
-    const billing = this.billings.value as Billing[];
-
-    if(billing.length===0)
-      return 0;
-
-    const numberArray = billing.map(item => item.value);  
-    return numberArray.reduce((acc, currentValue) => Number(acc) + Number(currentValue));
-  }
-
-  // Filtrar a lista q tiver description vazio
-  get filterBillingList() {
-    return null;
   }
 
   addBilling() {
@@ -138,9 +166,8 @@ export class FormServiceOrderComponent implements OnInit {
     this.billings.removeAt(idx);
   }
 
-
   findCep() {
-    const cepValue = this.formGroup.value.cep;
+    const cepValue = this.formGroup.value.client.address.cep;
     if(cepValue.length<8)
       return;
     
@@ -151,9 +178,13 @@ export class FormServiceOrderComponent implements OnInit {
       }
 
       this.formGroup.patchValue({
-        city: data.localidade,
-        logradouro: data.logradouro,
-        uf: data.uf,
+        'client': {
+          'address': {
+            'city': data.localidade,
+            'logradouro': data.logradouro,
+            'uf': data.uf,
+          }
+        }
       });
     });
  
@@ -174,4 +205,53 @@ export class FormServiceOrderComponent implements OnInit {
        });
     }, 100);
   }
+
+  changeEquipment(equipmentSelected: Equipment) {
+    this.formGroup.patchValue({
+      'equipment': {
+        'id': equipmentSelected.id,
+        'description': equipmentSelected.description,
+        'serialNumber': equipmentSelected.serialNumber,
+        'equipmentType': equipmentSelected.equipmentType
+      }
+    });
+    this.equipmentExpanded = false;
+  }
+
+  changeClient(clientSelected: Client) {
+    this.formGroup.patchValue({
+      'client': {
+        'id': clientSelected.id,
+        'name': clientSelected.name,
+        'phoneNumber': clientSelected.phoneNumber,
+        'email': clientSelected.email,
+        'cpfCnpj': clientSelected.cpfCnpj,
+        'address': {
+          'cep': clientSelected.address.cep,
+          'city': clientSelected.address.city,
+          'uf': clientSelected.address.uf,
+          'logradouro': clientSelected.address.logradouro,
+          'complement': clientSelected.address.complement
+        }
+      }
+    });
+
+    this.findEquipmentsByClientId(clientSelected.id);
+
+    this.clientExpanded = false;
+  }
+
+  
+  findEquipmentsByClientId(clientId: string) {
+    if(clientId===null)
+      return;
+
+    this.equipmentService
+      .findEquipmentsByClientId(clientId)
+      .subscribe(resp => {
+        console.log(resp)
+        this.equipmentClientList = resp;
+      });
+  }
+
 }

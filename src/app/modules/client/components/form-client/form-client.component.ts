@@ -89,7 +89,7 @@ export class FormClientComponent implements OnInit {
         console.log(data);
         this.clientsRegistereds = data;
        });
-    }, 100);
+    }, 5000);
   }
 
   changeClient(value: Client) {

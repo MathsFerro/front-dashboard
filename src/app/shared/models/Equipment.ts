@@ -1,6 +1,8 @@
 import { EquipmentType } from "./enums/EquipmentType";
 
 export class Equipment {
-  id: number;
+  id: string;
+  description: string;
+  serialNumber: string;
   equipmentType: EquipmentType
 }

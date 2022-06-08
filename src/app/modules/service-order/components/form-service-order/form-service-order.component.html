@@ -12,7 +12,7 @@
 
 
 <form [formGroup]="formGroup">
-  <mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel [expanded]="clientExpanded">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Cliente
@@ -22,11 +22,15 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="row" formGroupName="client">
-      <mat-form-field appearance="outline" class="col" >
+      <mat-form-field appearance="outline" class="col">
         <mat-label>Nome</mat-label>
-        <input matInput placeholder="" formControlName="name" formContro>
+        <input matInput placeholder="" autoComplete='none' [matAutocomplete]="auto1" formControlName="name" (ngModelChange)="findClientsByName($event)" >
         <mat-icon matSuffix>person</mat-icon>
-    
+        <mat-autocomplete autoActiveFirstOption #auto1 (optionSelected)="changeClient($event.option.value)">
+          <mat-option *ngFor="let option of clientsRegistereds" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     
       <mat-form-field appearance="outline" class="col">
@@ -45,13 +49,13 @@
       <mat-form-field appearance="outline" class="col">
         <mat-label>CPF / CNPJ</mat-label>
         <input matInput placeholder="" type="number"  formControlName="cpfCnpj" autoComplete='none'>
-        <mat-icon matSuffix>phone</mat-icon>
+        <mat-icon matSuffix>assignment_ind</mat-icon>
       </mat-form-field>
       <div class="w-100"></div>
 
       <mat-form-field appearance="outline" class="col" formGroupName="address" >
         <mat-label>CEP</mat-label>
-        <input matInput placeholder="" (ngModelChange)="findCep()" [mask]=cepMask type="number"   formControlName="cep"  autoComplete='none'>
+        <input matInput placeholder="" (ngModelChange)="findCep()" [mask]=cepMask   formControlName="cep"  autoComplete='none'>
         <mat-icon matSuffix>place</mat-icon>
       </mat-form-field>
 
@@ -82,30 +86,39 @@
     </div>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel [expanded]="equipmentExpanded">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title >
         Equipamento
       </mat-panel-title>
+      <mat-panel-description>
+        {{ this.formGroup.value.equipment.description }}
+      </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="row" formGroupName="equipment">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Descrição</mat-label>
+        <input matInput  placeholder=""  [matAutocomplete]="auto2" formControlName="description" autoComplete='none'>
+        <mat-icon matSuffix>subject</mat-icon>
+        
+        <mat-autocomplete  autoActiveFirstOption #auto2 (optionSelected)="changeEquipment($event.option.value)">
+          <mat-option *ngFor="let option of equipmentClientList" [value]="option">
+            {{option.description}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> 
+
       <mat-form-field appearance="outline" class="col-lg-2" >
         <mat-label>Número de Série</mat-label>
         <input matInput placeholder="" formControlName="serialNumber" autoComplete='none'>
         <mat-icon matSuffix>desktop_windows</mat-icon>
       </mat-form-field>  
     
-      <mat-form-field appearance="outline" class="col">
-        <mat-label>Descrição</mat-label>
-        <input matInput placeholder="" formControlName="description" autoComplete='none'>
-        <mat-icon matSuffix>subject</mat-icon>
-      </mat-form-field> 
-    
       <mat-form-field appearance="outline" class="col-lg-2">
         <mat-label>Tipo do Equipamento</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
+        <mat-select formControlName="equipmentType">
+          <mat-option *ngFor="let type of equipmentTypeList" [value]="type.key">
+            {{type.value}}
           </mat-option>
         </mat-select>
       </mat-form-field>    
@@ -124,11 +137,12 @@
         <input matInput placeholder="" formControlName="accessory" autoComplete='none'>
         <mat-icon matSuffix>library_books</mat-icon>
       </mat-form-field>
+      
       <mat-form-field appearance="outline" class="col-lg-2">
         <mat-label>Garantia</mat-label>
         <mat-select>
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
+          <mat-option *ngFor="let assurance of assuranceTypeList" [value]="assurance.key">
+            {{assurance.value}}
           </mat-option>
         </mat-select>
       </mat-form-field> 
@@ -175,7 +189,7 @@
             <mat-icon matSuffix>attach_money</mat-icon>
           </mat-form-field>
 
-          <mat-icon style="margin-top: 15px; margin-right: 30px;" (click)="deleteBilling(i)">
+          <mat-icon class="delete-billing-icon" (click)="deleteBilling(i)">
             delete_forever</mat-icon>
         </div>
       </ng-container> 

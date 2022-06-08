@@ -11,6 +11,7 @@ import { CepService } from 'src/app/shared/services/cep.service';
 import { DialogAnnotationsComponent } from './components/dialog-annotations/dialog-annotations.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { ClientService } from '../client/services/client.service';
+import { EquipmentService } from 'src/app/shared/services/equipment.service';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ClientService } from '../client/services/client.service';
   providers: [
     ServiceOrderService, 
     CepService,
-    ClientService
+    ClientService,
+    EquipmentService
   ],
   exports: [ServiceOrderComponent]
 })
