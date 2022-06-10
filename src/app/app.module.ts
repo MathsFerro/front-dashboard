@@ -30,7 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     SharedModule,
     AngularMaterialModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

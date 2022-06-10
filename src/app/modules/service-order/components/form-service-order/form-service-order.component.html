@@ -1,31 +1,51 @@
-<mat-card class="example-card">
-  
+<!--
+<mat-card class="example-card">  
   <mat-card-title-group>
     <mat-card-title>	 
       <mat-icon routerLink="/service-order">arrow_back</mat-icon> 
       Nova Ordem de Serviço
-    
     </mat-card-title>
     <mat-icon (click)="openModalAnnotations()" class="button-notes">notes</mat-icon>
   </mat-card-title-group>
 </mat-card>
+-->
+
+<div class="d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center">
+    <mat-icon class="back-icon" routerLink="/service-order">arrow_back</mat-icon> 
+    <h1 style="margin: 0px;">	 
+      Nova Ordem de Serviço
+    </h1>
+    <!--<input class="input-number-os" placeholder="" type="number" autocomplete="off">-->
+
+  </div>
+
+      
+  <mat-icon (click)="openModalAnnotations()" class="button-notes">notes</mat-icon>
+</div>
+<br/>
 
 
 <form [formGroup]="formGroup">
-  <mat-expansion-panel [expanded]="clientExpanded">
-    <mat-expansion-panel-header>
+  <mat-expansion-panel [expanded]="clientExpanded" class="mt-1">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
-        Cliente
+        Cliente: {{ this.formGroup.value.client.name }}
       </mat-panel-title>
+<!--
       <mat-panel-description>
         {{ this.formGroup.value.client.name }}
       </mat-panel-description>
+-->
     </mat-expansion-panel-header>
     <div class="row" formGroupName="client">
       <mat-form-field appearance="outline" class="col">
         <mat-label>Nome</mat-label>
         <input matInput placeholder="" autoComplete='none' [matAutocomplete]="auto1" formControlName="name" (ngModelChange)="findClientsByName($event)" >
-        <mat-icon matSuffix>person</mat-icon>
+        <button tabindex="-1" name="f1" *ngIf="this.formGroup.value.client.name" matSuffix mat-icon-button aria-label="Clear" (click)="clearClientFields()" >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-icon *ngIf="!this.formGroup.value.client.name" matSuffix>person</mat-icon>
         <mat-autocomplete autoActiveFirstOption #auto1 (optionSelected)="changeClient($event.option.value)">
           <mat-option *ngFor="let option of clientsRegistereds" [value]="option">
             {{option.name}}
@@ -86,19 +106,21 @@
     </div>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="equipmentExpanded">
+  <mat-expansion-panel [expanded]="equipmentExpanded" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title >
-        Equipamento
+        Equipamento: {{ this.formGroup.value.equipment.description }}
       </mat-panel-title>
+<!--
       <mat-panel-description>
         {{ this.formGroup.value.equipment.description }}
       </mat-panel-description>
+-->
     </mat-expansion-panel-header>
     <div class="row" formGroupName="equipment">
       <mat-form-field appearance="outline" class="col">
         <mat-label>Descrição</mat-label>
-        <input matInput  placeholder=""  [matAutocomplete]="auto2" formControlName="description" autoComplete='none'>
+        <input matInput  placeholder=""  [matAutocomplete]="auto2" formControlName="description" autoComplete='none' (ngModelChange)="handleEquipmentChange($event)">
         <mat-icon matSuffix>subject</mat-icon>
         
         <mat-autocomplete  autoActiveFirstOption #auto2 (optionSelected)="changeEquipment($event.option.value)">
@@ -125,7 +147,7 @@
     </div>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel [expanded]="true" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
         Defeito / Acessórios / Garantia
@@ -140,7 +162,7 @@
       
       <mat-form-field appearance="outline" class="col-lg-2">
         <mat-label>Garantia</mat-label>
-        <mat-select>
+        <mat-select formControlName="assurance">
           <mat-option *ngFor="let assurance of assuranceTypeList" [value]="assurance.key">
             {{assurance.value}}
           </mat-option>
@@ -161,7 +183,7 @@
     </div> 
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel [expanded]="true" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
         Serviços / Peças
@@ -208,7 +230,7 @@
   </mat-expansion-panel>
 
   <div class="actions">
-    <button mat-raised-button color="primary" class="custom-container-button"  type="button">
+    <button mat-raised-button color="primary" class="custom-container-button" (click)="openModalConfirmClearForm()" type="button">
       <div class="d-flex align-items-center custom-button">
         <mat-icon>delete</mat-icon>
       </div>
@@ -219,7 +241,7 @@
         <mat-icon>insert_drive_file</mat-icon>
       </div>
     </button>
-    <button mat-raised-button class="bg-success container-button-save" (click)="onSubmit()">
+    <button [disabled]="disableSaveButton" mat-raised-button class="bg-success container-button-save" (click)="onSubmit()">
       <div class="d-flex align-items-center save-button">
         Salvar
         <mat-icon>save</mat-icon>

@@ -18,6 +18,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -41,6 +43,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSelectModule,
     MatStepperModule,
     MatTreeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  
   ]
 })
 export class AngularMaterialModule { }

@@ -7,12 +7,17 @@ import { Client } from 'src/app/shared/models/Client';
 import { AssuranceType } from 'src/app/shared/models/enums/AssuranceType';
 import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
 import { Equipment } from 'src/app/shared/models/Equipment';
+import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
 import { CepService } from 'src/app/shared/services/cep.service';
 import { EquipmentService } from 'src/app/shared/services/equipment.service';
 import { MaskUtils } from 'src/app/shared/utils/MaskUtils';
 import { ServiceOrderService } from '../../services/service-order.service';
 import { DialogAnnotationsComponent } from '../dialog-annotations/dialog-annotations.component';
-import { Billing } from '../types/Billing';
+import { Billing } from '../../types/Billing';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Annotation } from 'src/app/shared/models/Annotation';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-form-service-order',
@@ -21,6 +26,8 @@ import { Billing } from '../types/Billing';
 })
 export class FormServiceOrderComponent implements OnInit {
 
+  public osNumber: number;
+
   // Expansion Panels
   public clientExpanded: boolean = true;
   public equipmentExpanded: boolean = true;
@@ -28,6 +35,9 @@ export class FormServiceOrderComponent implements OnInit {
   // Mat Select
   public assuranceTypeList: any[] = [];
   public equipmentTypeList: any[] = [];
+
+  // Buttons
+  public disableSaveButton: boolean = false;
   
   public clientsRegistereds: Client[] = [];
   public formGroup: FormGroup;
@@ -35,8 +45,6 @@ export class FormServiceOrderComponent implements OnInit {
   public equipmentClientList: Equipment[] = [];
   public cepMask = MaskUtils["cepMask"];
   public timeoutSearchClient: any;
-  
-  private clientSelected: any;
 
   constructor(
     private service: ServiceOrderService,
@@ -44,7 +52,9 @@ export class FormServiceOrderComponent implements OnInit {
     private equipmentService: EquipmentService,
     private cepService: CepService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService
   ) {
   }
 
@@ -52,7 +62,7 @@ export class FormServiceOrderComponent implements OnInit {
     this.loadEquipmentTypeList();
     this.loadAssuranceTypeList();
     this.buildForm();
-    this.getNumberNextOS();
+    this.getNumberNextOS(); 
   }
 
   get valueForm() {
@@ -61,6 +71,10 @@ export class FormServiceOrderComponent implements OnInit {
 
   get billings(): FormArray {
     return this.formGroup.controls['billings'] as FormArray;
+  }
+
+  get annotations(): FormArray {
+    return this.formGroup.controls['annotations'] as FormArray;
   }
 
   get valueBillings() {
@@ -73,9 +87,12 @@ export class FormServiceOrderComponent implements OnInit {
     return numberArray.reduce((acc, currentValue) => Number(acc) + Number(currentValue));
   }
 
-  // Filtrar a lista q tiver description vazio
-  get filterBillingList() {
-    return null;
+  get annotationsList() {
+    return this.formGroup.value.annotations;
+  }
+
+  get billingList() {
+    return this.formGroup.value.billings;
   }
 
   loadEquipmentTypeList() {
@@ -92,54 +109,80 @@ export class FormServiceOrderComponent implements OnInit {
 
   getNumberNextOS() {
     this.service.numberNextOS()
-      .subscribe(number => console.log(number));
+      .subscribe(number => this.osNumber = number);
   }
 
   openModalAnnotations() {
-    console.log(this.formGroup.value.annotations);
     this.dialog.open(DialogAnnotationsComponent, { 
-      data: this.formGroup.value.annotations
-    }).afterClosed().subscribe((resp: FormArray) => {
-      console.log(resp); 
-      this.formGroup.value.annotations = resp;
+      data: this.formGroup.value.annotations,
+      disableClose: true
+    }).afterClosed().subscribe((resp: Annotation[]) => {
+      if(!resp)
+        return;
+      const form = this.annotations;
+      form.clear();
+      resp.map((value: Annotation) => {
+        if(value.description.trim()==='')
+          return;
+
+        form.push(this.fb.group({
+          'description': value.description
+        }));
+      });
     });
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
-    if(this.formGroup.invalid)
-      return;
+    if(this.formGroup.invalid) {
+      this.toastr.info(`Preencha todos os campos obrigatórios`);
+      return;  
+    }
 
-      
+    this.disableSaveButton = true;
+
+    this.clearEmptyFields();
+
+    this.service.add(this.formGroup.value as ServiceOrder)
+      .subscribe(resp => {
+        console.log("sucesso ", resp)
+        this.toastr.success(`OS [${this.osNumber}] - Criada com Sucesso`,'',{ timeOut: 2500 });   
+        //this.router.navigate(['/service-order']);
+      }, err => {
+        this.toastr.error(`Ocorreu um erro ao registrar a OS`, '', { timeOut: 2500 });
+        console.error(err);
+        this.disableSaveButton = false
+      });
+
+    // this.service.add(this.formGroup.value as ServiceOrder)
+    //   .subscribe({
+    //     next: (v) => console.log("v", v),
+    //     error: (e) => console.error("e", e),
+    //     complete: () => console.info('complete') 
+    //   })
+  }
+
+  clearEmptyFields() {
+    this.formGroup.value.billings = this.billingList
+      .filter((billing:Billing) => billing.description.trim()!=='')
+
+    this.formGroup.value.annotations = this.annotationsList
+      .filter((annotation: Annotation) => annotation.description.trim()!=='')
   }
 
   buildForm() {
     this.formGroup = this.fb.group({
-      'client': this.fb.group({
-        'id': null,
-        'name': ['', Validators.required],
-        'phoneNumber': [''],
-        'email': [''],
-        'cpfCnpj': [''],
-        'address': this.fb.group({
-          'cep': [''],
-          'city': [''],
-          'uf': [''],
-          'logradouro': [''],
-          'complement': ['']
-        })
-      }),
-      'equipment': this.fb.group({
-        'id': null,
-        'description': [''],
-        'serialNumber': [''],
-        'equipmentType': ['']
-      }),
+      'client': this.buildFormClient(),
+      'equipment': this.buildFormEquipment(),
       'id': null,
-      'accessory': [''],
-      'defect': [''],
-      'diagnostic': [''],
-      'annotations': new FormArray([]),
+      'accessory': null,
+      'defect': null,
+      'diagnostic': null,
+      'assurance': null,
+      'annotations': this.fb.array([
+        this.fb.group({
+          'description': ['']
+        }),
+      ]),
       'billings': this.fb.array([
         this.fb.group({
           'description': [''],
@@ -150,6 +193,32 @@ export class FormServiceOrderComponent implements OnInit {
           'value': [0]
         })
       ])
+    });
+  }
+
+  buildFormClient(): FormGroup {
+    return this.fb.group({
+      'id': null,
+      'name': ['', Validators.required],
+      'phoneNumber': null,
+      'email': null,
+      'cpfCnpj': null,
+      'address': this.fb.group({
+        'cep': [''],
+        'city': [''],
+        'uf': [''],
+        'logradouro': [''],
+        'complement': ['']
+      })
+    });
+  }
+
+  buildFormEquipment(): FormGroup {
+    return this.fb.group({
+      'id': null,
+      'description': ['', Validators.required],
+      'serialNumber': [''],
+      'equipmentType': ['']
     });
   }
 
@@ -167,42 +236,76 @@ export class FormServiceOrderComponent implements OnInit {
   }
 
   findCep() {
-    const cepValue = this.formGroup.value.client.address.cep;
-    if(cepValue.length<8)
-      return;
-    
-    this.cepService.findCep(cepValue).subscribe(data => { 
-      if(data.erro) {
-        console.log("cep não encontrado")
+    setTimeout(() => {
+      const cepValue = this.formGroup.value.client.address.cep;
+      if(cepValue===null || cepValue.length<8)
         return;
-      }
-
-      this.formGroup.patchValue({
-        'client': {
-          'address': {
-            'city': data.localidade,
-            'logradouro': data.logradouro,
-            'uf': data.uf,
-          }
+    
+      this.cepService.findCep(cepValue).subscribe(data => { 
+        if(data.erro) {
+          console.log("cep não encontrado")
+          return;
         }
+
+        this.formGroup.patchValue({
+          'client': {
+            'address': {
+              'city': data.localidade,
+              'logradouro': data.logradouro,
+              'uf': data.uf,
+            }
+          }
+        });
       });
+    }, 100);
+  }
+
+  clearClientFields() {
+    this.formGroup.patchValue({
+      'client': {
+        'id': null,
+        'name': null,
+        'phoneNumber': null,
+        'email': null,
+        'cpfCnpj': null,
+        'address': {
+          'cep': null,
+          'city': null,
+          'uf': null,
+          'logradouro': null,
+          'complement': null
+        }
+      },
+      'equipment': {
+        'id': null,
+        'description': null,
+        'serialNumber': null,
+        'equipmentType': null
+      }
     });
- 
+
+    this.clientExpanded = true;
+    this.equipmentExpanded = true;
+
+    this.resetLists();
+  }
+
+  resetLists() {
+    this.equipmentClientList = [];
+    this.clientsRegistereds = [];
   }
 
   findClientsByName(name: string) {
     clearTimeout(this.timeoutSearchClient);
-    if(name.length<3 || this.clientSelected) {
+    if(name && name.length<2) {
       this.clientsRegistereds = [];
-      this.clientSelected = null;
       return;
     }
-
+    
     this.timeoutSearchClient = setTimeout(() => { 
-      this.clientService.findClientsByName(name).subscribe(data => {
-        console.log(data);
-        this.clientsRegistereds = data;
-       });
+      this.clientService
+        .findClientsByName(name)
+        .subscribe(data => this.clientsRegistereds = data);
     }, 100);
   }
 
@@ -237,7 +340,6 @@ export class FormServiceOrderComponent implements OnInit {
     });
 
     this.findEquipmentsByClientId(clientSelected.id);
-
     this.clientExpanded = false;
   }
 
@@ -252,6 +354,51 @@ export class FormServiceOrderComponent implements OnInit {
         console.log(resp)
         this.equipmentClientList = resp;
       });
+  }
+
+  handleEquipmentChange(description: string) {
+    const equipmentDescriptions = this.equipmentClientList.map(equipment => equipment.description);
+    if(equipmentDescriptions.filter(itemDescription => itemDescription===description).length>0) {
+      this.equipmentClientList.map(item => {
+        if(item.description===description) {
+          this.formGroup.patchValue({
+            'equipment': {
+              'id': item.id,
+              'equipmentType': item.equipmentType,
+              'serialNumber': item.serialNumber
+            }
+          });
+        }
+      });
+
+      return;
+    }
+
+    // this.formGroup.patchValue({
+    //   'equipment': {
+    //     'id': null,
+    //     'equipmentType': [''],
+    //     'serialNumber': ['']
+    //   }
+    // });
+  }
+  
+  openModalConfirmClearForm() {
+    this.dialog.open(ConfirmDialogComponent, { 
+        data: "Essa operação vai limpar todos os campos preenchidos",
+        disableClose: true 
+      })
+      .afterClosed().subscribe((resp:boolean) => {
+        if(resp) {
+          this.buildForm();
+          this.openAllExpansioPanels();
+        }
+      });
+  }
+
+  openAllExpansioPanels() {
+    this.clientExpanded = true;
+    this.equipmentExpanded = true;
   }
 
 }

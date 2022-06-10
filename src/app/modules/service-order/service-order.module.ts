@@ -12,10 +12,11 @@ import { DialogAnnotationsComponent } from './components/dialog-annotations/dial
 import { NgxMaskModule } from 'ngx-mask';
 import { ClientService } from '../client/services/client.service';
 import { EquipmentService } from 'src/app/shared/services/equipment.service';
+import { SearchServiceOrderComponent } from './components/search-service-order/search-service-order.component';
 
 
 @NgModule({
-  declarations: [ServiceOrderComponent, FormServiceOrderComponent, DialogAnnotationsComponent],
+  declarations: [ServiceOrderComponent, FormServiceOrderComponent, DialogAnnotationsComponent, SearchServiceOrderComponent],
   imports: [
     CommonModule,
     ServiceOrderRoutingModule,

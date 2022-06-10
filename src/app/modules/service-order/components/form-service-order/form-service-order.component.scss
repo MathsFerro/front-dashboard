@@ -63,10 +63,8 @@ mat-card-title {
   }
 }
 
-mat-expansion-panel {
-  margin-top: 5px;
-}
 
+/*
 
 mat-card-subtitle {
   display: flex;
@@ -81,8 +79,32 @@ mat-card-subtitle {
     }
   }
 }
+*/
+
+
+.input-number-os {
+  width: 60px;
+  outline: none;
+  color: white;
+  border: none;
+  border-bottom: 1px solid white;
+  background-color: transparent; 
+  margin-left:15px;
+}
+
+.back-icon {
+  margin-right: 10px;
+  cursor: pointer;
+  
+  transition: filter .3s;
+  &:hover {
+    filter: brightness(70%);
+  }
+}
+
 
 .container-total {
+  margin-right: 3vw;
   p {
     margin: 0px;
   }

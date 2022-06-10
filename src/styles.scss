@@ -5,3 +5,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+h1, span {
+  font-family: 'Poppins'!important;
+  font-weight: 500;
+  margin: 0;
+}

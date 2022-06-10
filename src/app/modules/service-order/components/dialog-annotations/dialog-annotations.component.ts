@@ -12,31 +12,33 @@ export class DialogAnnotationsComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: FormArray,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder  
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
-
     this.formGroup = this.fb.group({
-      'annotations': this.data
+      'annotations': this.fb.array([])
     });
-  
+
+    this.getAnnotations();
   }
 
   get annotations(): FormArray {
     return this.formGroup.controls['annotations'] as FormArray;
   }
 
-  get annotation(): FormGroup {
-    return this.fb.group({
-      'description': ['']
+  getAnnotations() {
+    this.data.map((value: any) => {
+      this.addAnnotation(value.description);
     });
   }
 
-  addAnnotation() {
-    const annotation = this.annotation;
+  addAnnotation(value?: any) {
+    const annotation = this.fb.group({
+      'description': value ? value : ['']
+    });
+
     this.annotations.push(annotation);
   }
 
