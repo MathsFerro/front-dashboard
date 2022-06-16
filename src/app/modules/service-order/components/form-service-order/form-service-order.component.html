@@ -30,7 +30,7 @@
   <mat-expansion-panel [expanded]="clientExpanded" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
-        Cliente: {{ this.formGroup.value.client.name }}
+        Cliente: <strong style="margin-left:5px;">{{ this.formGroup.value.client.name }}</strong>
       </mat-panel-title>
 <!--
       <mat-panel-description>
@@ -108,8 +108,8 @@
 
   <mat-expansion-panel [expanded]="equipmentExpanded" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
-      <mat-panel-title >
-        Equipamento: {{ this.formGroup.value.equipment.description }}
+      <mat-panel-title>
+        Equipamento: <strong style="margin-left:5px;">{{ this.formGroup.value.equipment.description }}</strong>
       </mat-panel-title>
 <!--
       <mat-panel-description>

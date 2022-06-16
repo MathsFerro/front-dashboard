@@ -5,43 +5,81 @@
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <form class="row">
-    <mat-form-field appearance="outline" class="col">
+  <form class="row" [formGroup]="formGroup">
+    
+    <mat-form-field appearance="outline" class="col-lg-6" formGroupName="client">
+      <mat-label>Nome do Cliente</mat-label>
+      <input matInput formControlName="name">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-lg-3" >
+      <mat-label>NR. da OS</mat-label>
+      <input matInput formControlName="numberServiceOrder" >
+      <mat-icon matSuffix>subject</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-lg-3" formGroupName="equipment">
+      <mat-label>NR. de Série do Equipamento</mat-label>
+      <input matInput formControlName="serialNumber">
+      <mat-icon matSuffix>desktop_windows</mat-icon>
+    </mat-form-field>
+
+    <div class="w-100"></div>
+
+    <mat-form-field appearance="outline" class="col-lg-4">
       <mat-label>Data de Entrada</mat-label>
-      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <mat-date-range-input formGroupName="enteredIn" [rangePicker]="picker">
         <input matStartDate formControlName="start" placeholder="Em">
         <input matEndDate formControlName="end" placeholder="Até">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-
-    <mat-form-field appearance="outline" class="col">
-      <mat-label>Nome do Cliente</mat-label>
-      <input matInput placeholder="Ex. Matheus" >
-      <mat-icon matSuffix>person</mat-icon>
+    
+    <mat-form-field appearance="outline" class="col-lg-4">
+      <mat-label>Data de Saída</mat-label>
+      <mat-date-range-input formGroupName="exitIn" [rangePicker]="picker1">
+        <input matStartDate formControlName="start" placeholder="Em">
+        <input matEndDate formControlName="end" placeholder="Até">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker1></mat-date-range-picker>
     </mat-form-field>
+    
 
-    <mat-form-field appearance="outline" class="col">
-      <mat-label>Número de Série do Equipamento</mat-label>
-      <input matInput placeholder="Ex. 11976005294" >
-      <mat-icon matSuffix>desktop_windows</mat-icon>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="col">
+    <mat-form-field appearance="outline" class="col-lg-4" formGroupName="equipment">
       <mat-label>Tipo do Equipamento</mat-label>
-      <mat-select >
+      <mat-select formControlName="equipmentType">
         <mat-option *ngFor="let type of equipmentTypeList" [value]="type.key">
           {{type.value}}
         </mat-option>
       </mat-select>
     </mat-form-field>   
 
-    <div class="w-100"></div>
-
-    <mat-action-row>
-      <button mat-flat-button class="bg-danger"><mat-icon>delete</mat-icon></button>
-      <button mat-flat-button class="d-flex align-items-center bg-success container-search-button">
+    <mat-chip-list class=" col" aria-label="Color selection">
+      <mat-chip 
+        *ngFor="let status of serviceOrderStatusList; index as i" 
+        [ngStyle]="{'background-color': [status.color]}"
+      >
+      <mat-checkbox (change)="status.selected=!status.selected">
+        {{status.name}}
+      </mat-checkbox>
+      </mat-chip>
+    </mat-chip-list>
+  
+    <mat-action-row class="mt-3">
+      <button 
+        mat-raised-button 
+        class="bg-danger"
+        (click)="openConfirmDialog()"
+        >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button 
+        mat-raised-button 
+        class="d-flex align-items-center bg-success container-search-button"
+        (click)="search()"
+      >
         <div class="d-flex align-items-center search-button">
             Buscar
           <mat-icon>search</mat-icon>
@@ -50,6 +88,4 @@
       
     </mat-action-row>
   </form>
-
-
 </mat-expansion-panel>

@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Annotation } from 'src/app/shared/models/Annotation';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { MESSAGE_CONFIRM_DIALOG } from 'src/app/shared/utils/Messages';
 
 @Component({
   selector: 'app-form-service-order',
@@ -385,7 +386,7 @@ export class FormServiceOrderComponent implements OnInit {
   
   openModalConfirmClearForm() {
     this.dialog.open(ConfirmDialogComponent, { 
-        data: "Essa operação vai limpar todos os campos preenchidos",
+        data: MESSAGE_CONFIRM_DIALOG,
         disableClose: true 
       })
       .afterClosed().subscribe((resp:boolean) => {

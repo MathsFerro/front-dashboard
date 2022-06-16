@@ -20,6 +20,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -45,7 +47,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTreeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  
+    MatChipsModule,
+    MatCheckboxModule,
   ]
 })
 export class AngularMaterialModule { }

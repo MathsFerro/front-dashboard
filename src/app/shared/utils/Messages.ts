@@ -1,0 +1,1 @@
+export const MESSAGE_CONFIRM_DIALOG = "Essa operação vai limpar todos os campos preenchidos";
