@@ -1,23 +1,29 @@
 <div class="container-sidenav">
 
-  <!--<mat-toolbar class="d-flex justify-content-between" color="primary">
-    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-  
+  <!--<mat-toolbar class="d-flex justify-content-between" color="primary">-->
 <!--    <div class="d-flex align-items-center user-settings">
       <p>Roberto Mauro</p>
       <mat-icon>settings</mat-icon>
     </div>-->
-  <!--</mat-toolbar>-->
+ <!-- </mat-toolbar>-->
+  <mat-icon  
+    [@onSideNavChange]="isOpen ? 'open' : 'closed'" 
+    class="open-close-container" 
+    (click)="isOpen=!isOpen; drawer.toggle()"
+  >
+    keyboard_arrow_right
+  </mat-icon> 
 
-  <mat-drawer-container autosize>
+ <mat-drawer-container autosize>
     <mat-drawer 
       [opened]="true"
       #drawer 
       class="sidenav" 
       mode="side"
     >
-    <div class="container-item-menu">
 
+    <div class="container-item-menu">
+ 
       <app-item-menu
         *ngFor="let menu of menuItems"
         iconName={{menu.iconName}}
