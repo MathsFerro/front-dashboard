@@ -1,7 +1,11 @@
-<mat-paginator 
-  [length]="pageable.totalPages"
-  [pageSize]="pageable.size"
-  [showFirstLastButtons]="true"
+
+<mat-paginator
   (page)="currentPage.emit($event.pageIndex)"
+  [length]="length"
+  [pageSize]="pageSize"
+  [showFirstLastButtons]="showFirstLastButtons"
+  [pageIndex]="pageIndex"
+  [hidePageSize]="true"
+  aria-label="Select page"
 >
 </mat-paginator>

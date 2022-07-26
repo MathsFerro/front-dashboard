@@ -13,16 +13,19 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ClientService } from '../client/services/client.service';
 import { EquipmentService } from 'src/app/shared/services/equipment.service';
 import { SearchServiceOrderComponent } from './components/search-service-order/search-service-order.component';
+import { TableServiceOrderComponent } from './components/table-service-order/table-service-order.component';
+import { PaginationTableModule } from 'src/app/shared/components/pagination-table/pagination-table.module';
 
 
 @NgModule({
-  declarations: [ServiceOrderComponent, FormServiceOrderComponent, DialogAnnotationsComponent, SearchServiceOrderComponent],
+  declarations: [ServiceOrderComponent, FormServiceOrderComponent, DialogAnnotationsComponent, SearchServiceOrderComponent, TableServiceOrderComponent],
   imports: [
     CommonModule,
     ServiceOrderRoutingModule,
     ReactiveFormsModule,
     AngularMaterialModule,
     FormsModule,
+    PaginationTableModule,
     NgxMaskModule.forRoot()
   ],
   providers: [

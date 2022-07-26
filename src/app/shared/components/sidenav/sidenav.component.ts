@@ -16,7 +16,7 @@ import { ItemMenu } from './models/ItemMenu';
       ),
       state('open',
         style({
-          'margin-left': '60px',
+          'margin-left': '58px',
           'transform': 'rotate(180deg)'
         }) 
       ),

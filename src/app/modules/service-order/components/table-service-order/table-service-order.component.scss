@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+
+.mat-column-demo-name {
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.mat-column-demo-weight {
+  font-style: italic;
+}
+
+.mat-column-actions,
+.mat-column-position,
+.mat-column-weight,
+.mat-column-symbol {
+  min-width: 100px;
+  text-align: center;
+}

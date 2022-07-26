@@ -23,4 +23,13 @@
 </div>
 <br/>
 
-<app-search-service-order></app-search-service-order>
+<app-search-service-order 
+  (formSearch)="handleSearch($event)"
+></app-search-service-order>
+<app-table-service-order 
+  [dataSource]="data.content"  
+></app-table-service-order>
+<app-pagination-table
+(currentPage)="searchByPage($event)"
+[pageable]="data"
+></app-pagination-table>

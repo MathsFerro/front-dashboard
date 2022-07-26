@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from 'src/app/modules/client/services/client.service';
@@ -33,6 +33,8 @@ export class FormServiceOrderComponent implements OnInit {
   public clientExpanded: boolean = true;
   public equipmentExpanded: boolean = true;
 
+  public hasChange: boolean = false;
+
   // Mat Select
   public assuranceTypeList: any[] = [];
   public equipmentTypeList: any[] = [];
@@ -59,11 +61,17 @@ export class FormServiceOrderComponent implements OnInit {
   ) {
   }
 
+  onChanges(changes: SimpleChanges): void {
+    console.log("x")
+    throw new Error('Method not implemented.');
+  }
+
   ngOnInit() {
     this.loadEquipmentTypeList();
     this.loadAssuranceTypeList();
     this.buildForm();
     this.getNumberNextOS(); 
+    this.handleFormChanges();
   }
 
   get valueForm() {
@@ -94,6 +102,16 @@ export class FormServiceOrderComponent implements OnInit {
 
   get billingList() {
     return this.formGroup.value.billings;
+  }
+
+  handleFormChanges() {
+    const initialValue = this.formGroup.value;
+    this.formGroup.valueChanges.subscribe(value => {
+      this.hasChange = Object.keys(initialValue).some(key => this.formGroup.value[key] != 
+                        initialValue[key])
+                        
+      this.disableSaveButton = false;
+    });
   }
 
   loadEquipmentTypeList() {
@@ -148,10 +166,11 @@ export class FormServiceOrderComponent implements OnInit {
         console.log("sucesso ", resp)
         this.toastr.success(`OS [${this.osNumber}] - Criada com Sucesso`,'',{ timeOut: 2500 });   
         //this.router.navigate(['/service-order']);
+        this.disableSaveButton = true;
       }, err => {
         this.toastr.error(`Ocorreu um erro ao registrar a OS`, '', { timeOut: 2500 });
         console.error(err);
-        this.disableSaveButton = false
+        this.disableSaveButton = false;
       });
 
     // this.service.add(this.formGroup.value as ServiceOrder)
@@ -187,11 +206,11 @@ export class FormServiceOrderComponent implements OnInit {
       'billings': this.fb.array([
         this.fb.group({
           'description': [''],
-          'value': [0]
+          'value': null
         }),
         this.fb.group({
           'description': [''],
-          'value': [0]
+          'value': null
         })
       ])
     });
@@ -226,7 +245,7 @@ export class FormServiceOrderComponent implements OnInit {
   addBilling() {
     const billingForm = this.fb.group({
       'description': [''],
-      'value': [0]
+      'value': null
     });
 
     this.billings.push(billingForm);
