@@ -15,6 +15,9 @@ import { EquipmentService } from 'src/app/shared/services/equipment.service';
 import { SearchServiceOrderComponent } from './components/search-service-order/search-service-order.component';
 import { TableServiceOrderComponent } from './components/table-service-order/table-service-order.component';
 import { PaginationTableModule } from 'src/app/shared/components/pagination-table/pagination-table.module';
+import { AuthGuardService } from 'src/app/shared/services/auth-guard.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -32,6 +35,7 @@ import { PaginationTableModule } from 'src/app/shared/components/pagination-tabl
     ServiceOrderService, 
     CepService,
     ClientService,
+
     EquipmentService
   ],
   exports: [ServiceOrderComponent]

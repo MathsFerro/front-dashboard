@@ -1,0 +1,32 @@
+<main>
+  <mat-card class="example-card mat-elevation-z4">
+    <mat-card-title class="text-center">Login</mat-card-title>
+    <mat-card-content class="mt-4 text-center">
+      <form [formGroup]="form">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col">
+            <mat-label>Usuário</mat-label>
+            <mat-icon matSuffix>people</mat-icon>
+            <input matInput placeholder="" formControlName="username" autoComplete='none'>
+    
+          </mat-form-field>
+          <div class="w-100"></div>
+          <mat-form-field appearance="outline" class="col">
+            <mat-label>Senha</mat-label>
+            <input matInput placeholder="" formControlName="password" autoComplete='none' type="password">
+            <mat-icon matSuffix>key</mat-icon>
+          </mat-form-field>
+        </div>
+        </form>  
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button [disabled]="false" (click)="onSubmit()" mat-raised-button class="w-100 bg-success">
+        Entrar
+      </button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar *ngIf="progressBar" mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</main>

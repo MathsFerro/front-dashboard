@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SidenavComponent } from './sidenav.component';
 
 const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import(`../../../modules/dashboard/dashboard.module`).then(m => m.DashboardModule) },

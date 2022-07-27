@@ -13,10 +13,15 @@ import { SharedModule } from './shared/modules/shared.module';
 import { AngularMaterialModule } from './shared/modules/angular-material.module';
 import { PaginationTableComponent } from './shared/components/pagination-table/pagination-table.component';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from './modules/login/login.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AuthenticationService } from './shared/services/authentication.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,12 @@ import { ToastrModule } from 'ngx-toastr';
     AngularMaterialModule,
     ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    AuthGuardService,
+    AuthenticationService,
+    JwtHelperService,
+    { provide: JWT_OPTIONS  , useValue: JWT_OPTIONS },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
