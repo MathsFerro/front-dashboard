@@ -24,13 +24,24 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')) {
-      this.toastr.warning("Usuário deslogado");
-      this.authenticated.emit(false);
-      localStorage.clear();
+    if(!localStorage.getItem('token')) {
+      this.buildForm();
+      return;
     }
+    
+    // TODO descomentar para PRD
+    // this.toastr.warning("Usuário deslogado");
+    // this.authenticated.emit(false);
+    // localStorage.clear();
 
-    this.buildForm();
+    // TODO Burlando AUTH para desenvolvimento
+    // TODO Burlando AUTH para desenvolvimento
+    // TODO Burlando AUTH para desenvolvimento
+    this.authenticated.emit(true);
+    this.router.navigate(['dashboard']);
+    // TODO Burlando AUTH para desenvolvimento
+    // TODO Burlando AUTH para desenvolvimento
+    // TODO Burlando AUTH para desenvolvimento
   }
 
   private buildForm() {
@@ -49,13 +60,22 @@ export class LoginComponent implements OnInit {
     // TODO tirar timeout
     const userModel: UserModel = this.form.value;
     this.authService.authenticate(userModel).then(resp => {
+
       setTimeout(() => {
         if(this.authService.isAuthenticated()) {
-          this.authenticated.emit(true);
-          this.router.navigate(['dashboard']);
-          this.toastr.success(`Bem vindo ${userModel.username}`);
+          this.processAuthenticatedUser(userModel);
         }
       }, 2000);
+    }).catch(reason => {
+      this.toastr.error("Usuário ou senha inválido(a)!");
+      this.progressBar = false;
     });
+
+  }
+
+  processAuthenticatedUser(userModel: UserModel) {
+    this.authenticated.emit(true);
+    this.router.navigate(['dashboard']);
+    this.toastr.success(`Bem vindo ${userModel.username}`);
   }
 }

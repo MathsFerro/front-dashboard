@@ -16,6 +16,5 @@ export class AppComponent {
 
   setAuthenticated(authenticated: boolean) {
     this.authenticated = authenticated;
-    console.log('app', this.authenticated);
   }
 }
