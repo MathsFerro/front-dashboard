@@ -52,8 +52,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.invalid)
+    if(this.form.invalid) {
+      this.toastr.info("Preencha todos os campos!");
       return;
+    }
 
     this.progressBar = true;
 
@@ -65,7 +67,7 @@ export class LoginComponent implements OnInit {
         if(this.authService.isAuthenticated()) {
           this.processAuthenticatedUser(userModel);
         }
-      }, 2000);
+      }, 1500);
     }).catch(reason => {
       this.toastr.error("Usuário ou senha inválido(a)!");
       this.progressBar = false;

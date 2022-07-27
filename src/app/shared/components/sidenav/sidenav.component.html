@@ -31,7 +31,10 @@
         [class.selected]="menu.value === selectedMenu"
         (click)="handleSelectedMenu(menu)"
       ></app-item-menu>
-
+      
+      <div class="logoff" (click)="logoff()">
+      <mat-icon class="logoff">exit_to_app</mat-icon>
+      </div>
     </div>
     </mat-drawer>
 

@@ -30,7 +30,6 @@
   mat-icon {
     transition: filter .2s;
 
-
     z-index: 100;
     position: absolute;
     top: 50vh;
@@ -82,4 +81,13 @@
 
 .selected {
   background-color: #c2185ca6;
+}
+
+.logoff {
+  position: absolute;
+  bottom: 10px!important;
+  mat-icon {
+    top: 0!important;
+    position: relative;
+  }
 }

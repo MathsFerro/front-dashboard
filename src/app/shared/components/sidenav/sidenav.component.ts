@@ -2,6 +2,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../../services/authentication.service';
 import { ItemMenu } from './models/ItemMenu';
 
 @Component({
@@ -34,7 +37,7 @@ export class SidenavComponent implements OnInit {
   public menuItems: ItemMenu[] = [];
   public selectedMenu: number;
 
-  constructor() {
+  constructor(private router: Router) {
     this.buildMenuItems();
   }
 
@@ -52,5 +55,10 @@ export class SidenavComponent implements OnInit {
 
   handleSelectedMenu(menu: ItemMenu) {
     this.selectedMenu = menu.value;
+  }
+
+  logoff() {
+    localStorage.clear();
+    location.reload(); // TODO arrumar
   }
 }
