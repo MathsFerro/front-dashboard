@@ -8,7 +8,8 @@ import { AuthenticationService } from './shared/services/authentication.service'
 })
 export class AppComponent {  
 
-  public authenticated: boolean = false;
+  // TODO Change to false
+  public authenticated: boolean = true;
 
   constructor() {
     console.log(this.authenticated);
