@@ -40,13 +40,9 @@ export class SearchServiceOrderComponent implements OnInit {
     this.formGroup = this.fb.group({
       'numberServiceOrder': null,
       'serviceOrderStatus': this.fb.array([]),
-      'equipment': this.fb.group({
-        'serialNumber': null,
-        'equipmentType': null
-      }),
-      'client': this.fb.group({
-        'name': null
-      }),
+      'serialNumber': null,
+      'equipmentType': null,
+      'name': null,
       'enteredIn': this.fb.group({
         'start': null,
         'end': null,

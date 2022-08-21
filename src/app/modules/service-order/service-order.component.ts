@@ -34,9 +34,10 @@ export class ServiceOrderComponent implements OnInit {
   }
 
   handleSearch(formServiceOrder: any) {
-    if(formServiceOrder!=null) {
-      return this.findAllByFilter(formServiceOrder);
-    }
+    console.log(formServiceOrder);
+    // if(formServiceOrder!=null) {
+    //   return this.findAllByFilter(formServiceOrder);
+    // }
 
     return this.findAll();
   }
@@ -47,7 +48,11 @@ export class ServiceOrderComponent implements OnInit {
   }
 
   findAll() {
-    this.service.findAllPageable(this.filter).subscribe(resp => this.data = resp);
-    console.log(this.data)
+    this.service.findAllPageable(this.filter).subscribe(resp => {
+
+      this.data = resp;
+      console.log(this.data);
+    });
+
   }
 }

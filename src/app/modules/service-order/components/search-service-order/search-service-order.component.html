@@ -7,7 +7,7 @@
 
   <form class="row" [formGroup]="formGroup">
     
-    <mat-form-field appearance="outline" class="col-lg-6" formGroupName="client">
+    <mat-form-field appearance="outline" class="col-lg-6">
       <mat-label>Nome do Cliente</mat-label>
       <input matInput formControlName="name">
       <mat-icon matSuffix>person</mat-icon>
@@ -18,7 +18,7 @@
       <input matInput formControlName="numberServiceOrder" >
       <mat-icon matSuffix>subject</mat-icon>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="col-lg-3" formGroupName="equipment">
+    <mat-form-field appearance="outline" class="col-lg-3">
       <mat-label>NR. de Série do Equipamento</mat-label>
       <input matInput formControlName="serialNumber">
       <mat-icon matSuffix>desktop_windows</mat-icon>
@@ -45,9 +45,35 @@
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-date-range-picker #picker1></mat-date-range-picker>
     </mat-form-field>
-    
 
-    <mat-form-field appearance="outline" class="col-lg-4" formGroupName="equipment">
+    <!-- <mat-form-field class="col-lg-4" appearance="outline">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let fruit of fruits"
+          (removed)="remove(fruit)">
+          {{fruit}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="Tipo de Equipamento"
+          #fruitInput
+          [formControl]="fruitCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+          {{fruit}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field> -->
+
+
+    <mat-form-field appearance="outline" class="col-lg-4">
       <mat-label>Tipo do Equipamento</mat-label>
       <mat-select formControlName="equipmentType">
         <mat-option *ngFor="let type of equipmentTypeList" [value]="type.key">

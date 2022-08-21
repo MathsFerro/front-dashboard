@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.buildForm();
     if(!localStorage.getItem('token')) {
-      this.buildForm();
       return;
     }
     
@@ -37,8 +37,10 @@ export class LoginComponent implements OnInit {
     // TODO Burlando AUTH para desenvolvimento
     // TODO Burlando AUTH para desenvolvimento
     // TODO Burlando AUTH para desenvolvimento
+    
     this.authenticated.emit(true);
-    this.router.navigate(['dashboard']);
+    // this.router.navigate(['dashboard']);
+
     // TODO Burlando AUTH para desenvolvimento
     // TODO Burlando AUTH para desenvolvimento
     // TODO Burlando AUTH para desenvolvimento
@@ -62,12 +64,9 @@ export class LoginComponent implements OnInit {
     // TODO tirar timeout
     const userModel: UserModel = this.form.value;
     this.authService.authenticate(userModel).then(resp => {
-
-      setTimeout(() => {
-        if(this.authService.isAuthenticated()) {
-          this.processAuthenticatedUser(userModel);
-        }
-      }, 1500);
+      if(this.authService.isAuthenticated()) {
+        this.processAuthenticatedUser(userModel);
+      }
     }).catch(reason => {
       this.toastr.error("Usuário ou senha inválido(a)!");
       this.progressBar = false;

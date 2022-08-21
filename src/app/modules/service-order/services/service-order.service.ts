@@ -34,13 +34,15 @@ export class ServiceOrderService {
     console.log(filter);
     const serviceOrderStatusValue = filter.serviceOrderStatus.map(status => status.value);
     const params = new HttpParams()
-      .set('client.name', String(filter.client?.name))
+      .set('name', String(filter.name))
       .set('numberServiceOrder', String(filter.numberServiceOrder))
-      .set('equipment.serialNumber', String(filter.equipment?.serialNumber))
-      .set('equipment.equipmentType', String(filter.equipment?.equipmentType))
+      .set('serialNumber', String(filter.serialNumber))
+      .set('equipmentType', String(filter.equipmentType))
       .set('serviceOrderStatus', String(serviceOrderStatusValue.join(", ")))
       .set('page', String(pageable.page))
       .set('size', String(pageable.size));
+
+    console.log("params:", params);
     return this.http.get<Pageable<ServiceOrder[]>>(`${this.url}/find-all-by-filter`, { params })
   }
 
