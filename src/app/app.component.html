@@ -1,2 +1,4 @@
-<app-sidenav *ngIf="authenticated"></app-sidenav>
-<app-login (authenticated)="setAuthenticated($event)" *ngIf="!authenticated"></app-login>
+<app-login *ngIf="!authenticated"></app-login>
+<app-navigation *ngIf="authenticated"></app-navigation>
+<!-- <app-sidenav *ngIf="authenticated"></app-sidenav>
+<app-login (authenticated)="setAuthenticated($event)" *ngIf="!authenticated"></app-login> -->

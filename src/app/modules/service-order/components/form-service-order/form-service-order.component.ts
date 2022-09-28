@@ -2,14 +2,12 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientService } from 'src/app/modules/client/services/client.service';
 import { Client } from 'src/app/shared/models/Client';
 import { AssuranceType } from 'src/app/shared/models/enums/AssuranceType';
 import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
-import { Equipment } from 'src/app/shared/models/Equipment';
+import { Equipment } from 'src/app/modules/equipment/models/Equipment';
 import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
 import { CepService } from 'src/app/shared/services/cep.service';
-import { EquipmentService } from 'src/app/shared/services/equipment.service';
 import { MaskUtils } from 'src/app/shared/utils/MaskUtils';
 import { ServiceOrderService } from '../../services/service-order.service';
 import { DialogAnnotationsComponent } from '../dialog-annotations/dialog-annotations.component';
@@ -19,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Annotation } from 'src/app/shared/models/Annotation';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { MESSAGE_CONFIRM_DIALOG } from 'src/app/shared/utils/Messages';
+import { EquipmentService } from 'src/app/modules/equipment/services/equipment.service';
 
 @Component({
   selector: 'app-form-service-order',
@@ -51,7 +50,7 @@ export class FormServiceOrderComponent implements OnInit {
 
   constructor(
     private service: ServiceOrderService,
-    private clientService: ClientService,
+    // private clientService: ClientService,
     private equipmentService: EquipmentService,
     private cepService: CepService,
     private dialog: MatDialog,
@@ -71,6 +70,9 @@ export class FormServiceOrderComponent implements OnInit {
     this.buildForm();
     this.getNumberNextOS(); 
     this.handleFormChanges();
+
+    // Se não for edit Mode
+    this.valueForm.numberServiceOrder = this.getNumberNextOS();
   }
 
   get valueForm() {
@@ -209,6 +211,7 @@ export class FormServiceOrderComponent implements OnInit {
       'defect': null,
       'diagnostic': null,
       'assurance': null,
+      'numberServiceOrder': null,
       'annotations': this.fb.array([
         this.fb.group({
           'description': ['']
@@ -330,12 +333,13 @@ export class FormServiceOrderComponent implements OnInit {
       this.clientsRegistereds = [];
       return;
     }
-    
-    this.timeoutSearchClient = setTimeout(() => { 
-      this.clientService
-        .findClientsByName(name)
-        .subscribe(data => this.clientsRegistereds = data);
-    }, 100);
+
+    // TODO DESCOMENTAR
+    // this.timeoutSearchClient = setTimeout(() => { 
+    //   this.clientService
+    //     .findClientsByName(name)
+    //     .subscribe(data => this.clientsRegistereds = data);
+    // }, 100);
   }
 
   changeEquipment(equipmentSelected: Equipment) {

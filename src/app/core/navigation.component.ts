@@ -1,15 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ItemMenu } from './models/ItemMenu';
+import { ItemMenu } from '../shared/components/item-menu/models/ItemMenu';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
   animations: [    
     trigger('onSideNavChange', [
       state('close',   
@@ -28,16 +23,16 @@ import { ItemMenu } from './models/ItemMenu';
       ]),
     ])
   ],
-  styleUrls: ['./sidenav.component.scss']
+  styleUrls: ['./navigation.component.scss']
 })
-export class SidenavComponent implements OnInit {
+export class NavigationComponent implements OnInit {
 
   public isOpen = true;
 
   public menuItems: ItemMenu[] = [];
   public selectedMenu: number;
 
-  constructor(private router: Router) {
+  constructor() {
     this.buildMenuItems();
   }
 

@@ -1,4 +1,4 @@
-import { EquipmentType } from "./enums/EquipmentType";
+import { EquipmentType } from "../../../shared/models/enums/EquipmentType";
 
 export class Equipment {
   id: string;

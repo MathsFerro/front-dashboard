@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from 'src/app/shared/models/UserModel';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
 
   constructor(
-    private authService: AuthenticationService,
+    // private authService: AuthenticationService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
@@ -54,23 +54,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.invalid) {
-      this.toastr.info("Preencha todos os campos!");
-      return;
-    }
+    // if(this.form.invalid) {
+    //   this.toastr.info("Preencha todos os campos!");
+    //   return;
+    // }
 
-    this.progressBar = true;
+    // this.progressBar = true;
 
-    // TODO tirar timeout
-    const userModel: UserModel = this.form.value;
-    this.authService.authenticate(userModel).then(resp => {
-      if(this.authService.isAuthenticated()) {
-        this.processAuthenticatedUser(userModel);
-      }
-    }).catch(reason => {
-      this.toastr.error("Usuário ou senha inválido(a)!");
-      this.progressBar = false;
-    });
+    // // TODO tirar timeout
+    // const userModel: UserModel = this.form.value;
+    // this.authService.authenticate(userModel).then(resp => {
+    //   if(this.authService.isAuthenticated()) {
+    //     this.processAuthenticatedUser(userModel);
+    //   }
+    // }).catch(reason => {
+    //   this.toastr.error("Usuário ou senha inválido(a)!");
+    //   this.progressBar = false;
+    // });
 
   }
 

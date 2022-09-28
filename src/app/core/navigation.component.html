@@ -1,11 +1,4 @@
 <div class="container-sidenav">
-
-  <!--<mat-toolbar class="d-flex justify-content-between" color="primary">-->
-<!--    <div class="d-flex align-items-center user-settings">
-      <p>Roberto Mauro</p>
-      <mat-icon>settings</mat-icon>
-    </div>-->
- <!-- </mat-toolbar>-->
   <mat-icon  
     [@onSideNavChange]="isOpen ? 'open' : 'closed'" 
     class="open-close-container" 
@@ -21,9 +14,7 @@
       class="sidenav" 
       mode="side"
     >
-
     <div class="container-item-menu">
- 
       <app-item-menu
         *ngFor="let menu of menuItems"
         iconName={{menu.iconName}}
@@ -31,23 +22,14 @@
         [class.selected]="menu.value === selectedMenu"
         (click)="handleSelectedMenu(menu)"
       ></app-item-menu>
-      
       <div class="logoff" (click)="logoff()">
       <mat-icon class="logoff">exit_to_app</mat-icon>
       </div>
     </div>
     </mat-drawer>
-
     <div class="sidenav-content">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-container>
 
 </div>
-
-
-  
-<!--<app-item-menu [class.selected]="true" iconName="dashboard" routerLink="/dashboard"></app-item-menu>
-      <app-item-menu iconName="insert_drive_file" routerLink="/service-order"></app-item-menu>
-      <app-item-menu iconName="desktop_windows" routerLink="/"></app-item-menu>
-      <app-item-menu iconName="people" routerLink="/client"></app-item-menu>-->

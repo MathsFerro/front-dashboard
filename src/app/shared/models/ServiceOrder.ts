@@ -2,7 +2,7 @@
 import { Billing } from "src/app/modules/service-order/types/Billing";
 import { Annotation } from "./Annotation";
 import { Client } from "./Client";
-import { Equipment } from "./Equipment";
+import { Equipment } from "../../modules/equipment/models/Equipment";
 
 export class ServiceOrder {
   id?: number;
