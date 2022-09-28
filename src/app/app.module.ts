@@ -11,7 +11,7 @@ import { AngularMaterialModule } from './shared/modules/angular-material.module'
 import { PaginationTableComponent } from './shared/components/pagination-table/pagination-table.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuardService } from './core/services/auth-guard.service';
 import { AuthenticationService } from './core/services/authentication.service';
 import { TokenInterceptorService } from './core/services/token-interceptor.service';
@@ -34,6 +34,7 @@ import { EquipmentComponent } from './modules/equipment/equipment.component';
     NgbModule,
     NgbPaginationModule, 
     NgbAlertModule,
+    HttpClientModule,
     ReactiveFormsModule,
     SharedModule,
     AngularMaterialModule,
