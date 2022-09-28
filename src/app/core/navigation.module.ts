@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ItemMenuComponent } from '../shared/components/item-menu/item-menu.component';
+import { ServiceOrderModule } from '../modules/service-order/service-order.module';
 
 @NgModule({
   declarations: [LoginComponent, NavigationComponent, ItemMenuComponent],
@@ -23,12 +24,13 @@ import { ItemMenuComponent } from '../shared/components/item-menu/item-menu.comp
     RouterModule,
     AngularMaterialModule,
     NavigationRoutingModule,
+    
     ReactiveFormsModule
   ],
   exports: [
     RouterModule,
     NavigationComponent,
     LoginComponent
-  ]
+  ],
 })
 export class NavigationModule { }

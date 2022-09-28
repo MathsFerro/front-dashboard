@@ -13,32 +13,32 @@ export class AuthenticationService {
   private url: string = "http://localhost:8080/auth0/token"
 
   constructor(
-    // private httpClient: HttpClient,
-    // private jwtHelper: JwtHelperService  
+    private httpClient: HttpClient,
+    private jwtHelper: JwtHelperService  
   ) { 
   }
 
-  // async authenticate(userModel: UserModel) {
-  //   if(this.isAuthenticated())
-  //     return;
+  async authenticate(userModel: UserModel) {
+    if(this.isAuthenticated())
+      return;
     
-  //   const params = new HttpParams({
-  //     fromObject: {
-  //       username: userModel.username,
-  //       password: userModel.password,
-  //     }
-  //   });
+    const params = new HttpParams({
+      fromObject: {
+        username: userModel.username,
+        password: userModel.password,
+      }
+    });
     
-  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
-  //   const token = await firstValueFrom(this.httpClient.post<Token>(this.url, params, httpOptions)); 
-  //   localStorage.setItem('token', token.accessToken);   
-  // }
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
+    const token = await firstValueFrom(this.httpClient.post<Token>(this.url, params, httpOptions)); 
+    localStorage.setItem('token', token.accessToken);   
+  }
 
-  // isAuthenticated(): boolean {
-  //   const token = localStorage.getItem('token');
-  //   if(!token)
-  //     return false;
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    if(!token)
+      return false;
 
-  //   return !this.jwtHelper.isTokenExpired(token);
-  // }
+    return !this.jwtHelper.isTokenExpired(token);
+  }
 }
