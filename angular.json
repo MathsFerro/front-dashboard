@@ -31,7 +31,6 @@
               "src/assets"
             ],
             "styles": [
-              //"src/theme.scss",
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
@@ -62,6 +61,14 @@
               ],
               "outputHashing": "all"
             },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -78,6 +85,9 @@
           "configurations": {
             "production": {
               "browserTarget": "rodero-dashboard:build:production"
+            },
+            "staging": {
+              "browserTarget": "rodero-dashboard:build:staging"
             },
             "development": {
               "browserTarget": "rodero-dashboard:build:development"
@@ -104,7 +114,6 @@
               "src/assets"
             ],
             "styles": [
-              //"src/theme.scss",
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"

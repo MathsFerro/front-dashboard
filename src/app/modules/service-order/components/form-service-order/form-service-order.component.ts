@@ -62,7 +62,6 @@ export class FormServiceOrderComponent implements OnInit {
   }
 
   onChanges(changes: SimpleChanges): void {
-    console.log("x")
     throw new Error('Method not implemented.');
   }
 
@@ -164,6 +163,18 @@ export class FormServiceOrderComponent implements OnInit {
     this.service.add(this.formGroup.value as ServiceOrder)
       .subscribe(resp => {
         console.log("sucesso ", resp)
+        
+        this.formGroup.patchValue({
+          'id': resp.id,
+          'client': {
+            'id': resp.client?.id,
+          },
+          'equipment': {
+            'id': resp.equipment?.id
+          }
+        })
+
+        console.log(this.formGroup.value);
         this.toastr.success(`OS [${this.osNumber}] - Criada com Sucesso`,'',{ timeOut: 2500 });   
         //this.router.navigate(['/service-order']);
         this.disableSaveButton = true;
@@ -238,7 +249,7 @@ export class FormServiceOrderComponent implements OnInit {
       'id': null,
       'description': ['', Validators.required],
       'serialNumber': [''],
-      'equipmentType': ['']
+      'equipmentType': null
     });
   }
 
@@ -256,28 +267,26 @@ export class FormServiceOrderComponent implements OnInit {
   }
 
   findCep() {
-    setTimeout(() => {
-      const cepValue = this.formGroup.value.client.address.cep;
-      if(cepValue===null || cepValue.length<8)
+    const cepValue = this.formGroup.value.client.address.cep;
+    if(cepValue===null || cepValue.length<8)
+      return;
+  
+    this.cepService.findCep(cepValue).subscribe(data => { 
+      if(data.erro) {
+        this.toastr.info("CEP não econtrado");
         return;
-    
-      this.cepService.findCep(cepValue).subscribe(data => { 
-        if(data.erro) {
-          console.log("cep não encontrado")
-          return;
-        }
+      }
 
-        this.formGroup.patchValue({
-          'client': {
-            'address': {
-              'city': data.localidade,
-              'logradouro': data.logradouro,
-              'uf': data.uf,
-            }
+      this.formGroup.patchValue({
+        'client': {
+          'address': {
+            'city': data.localidade,
+            'logradouro': data.logradouro,
+            'uf': data.uf,
           }
-        });
+        }
       });
-    }, 100);
+    });
   }
 
   clearClientFields() {
@@ -393,14 +402,6 @@ export class FormServiceOrderComponent implements OnInit {
 
       return;
     }
-
-    // this.formGroup.patchValue({
-    //   'equipment': {
-    //     'id': null,
-    //     'equipmentType': [''],
-    //     'serialNumber': ['']
-    //   }
-    // });
   }
   
   openModalConfirmClearForm() {

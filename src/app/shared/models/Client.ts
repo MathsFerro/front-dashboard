@@ -5,7 +5,6 @@ export class Client {
   name: string;
   address: Address;
   phoneNumber: string;
-  personType?: string; // TODO trocar para enum
   cpfCnpj: string;
   email: string;
   registeredAt?: Date

@@ -27,6 +27,55 @@
 
 
 <form [formGroup]="formGroup">
+  <mat-expansion-panel [expanded]="equipmentExpanded" class="mt-1">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title>
+        Ordem de Serviço: <strong style="margin-left:5px;"></strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row" formGroupName="equipment">
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>NR. da OS</mat-label>
+        <input matInput formControlName="description" autoComplete='none'>
+        <mat-icon matSuffix>subject</mat-icon>
+        
+        <mat-autocomplete  autoActiveFirstOption #auto2 (optionSelected)="changeEquipment($event.option.value)">
+          <mat-option *ngFor="let option of equipmentClientList" [value]="option">
+            {{option.description}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> 
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Data de Entrada</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Data de Saída</mat-label>
+        <input matInput [matDatepicker]="datepicker">
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Garantia</mat-label>
+        <mat-select formControlName="assurance">
+          <mat-option *ngFor="let assurance of assuranceTypeList" [value]="assurance.key">
+            {{assurance.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> 
+    </div>
+  </mat-expansion-panel>
+
   <mat-expansion-panel [expanded]="clientExpanded" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
@@ -150,24 +199,14 @@
   <mat-expansion-panel [expanded]="true" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
-        Defeito / Acessórios / Garantia
+        Defeito / Acessórios
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="row">
       <mat-form-field appearance="outline" class="col">
         <mat-label>Acessórios</mat-label>
-        <input matInput placeholder="" formControlName="accessory" autoComplete='none'>
-        <mat-icon matSuffix>library_books</mat-icon>
+        <textarea matInput formControlName="accessory" autoComplete='none'></textarea>
       </mat-form-field>
-      
-      <mat-form-field appearance="outline" class="col-lg-2">
-        <mat-label>Garantia</mat-label>
-        <mat-select formControlName="assurance">
-          <mat-option *ngFor="let assurance of assuranceTypeList" [value]="assurance.key">
-            {{assurance.value}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> 
 
       <div class="w-100"></div>
 

@@ -5,6 +5,7 @@ import { FilterPageable } from 'src/app/shared/models/FilterPageable';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
 import { handleFilterPageable } from 'src/app/shared/utils/HttpParamsUtils';
+import { environment } from 'src/environments/environment';
 import { FilterServiceOrder } from '../models/FilterServiceOrder';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { FilterServiceOrder } from '../models/FilterServiceOrder';
 })
 export class ServiceOrderService {
 
-  private url: string = "http://localhost:8080/v1/service-order";
+  private url: string = `${environment.baseUrl}/service-order`;
 
   constructor(private http: HttpClient) { }
 

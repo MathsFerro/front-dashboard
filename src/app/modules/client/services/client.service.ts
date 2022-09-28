@@ -5,6 +5,7 @@ import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
 import { FilterPageable } from 'src/app/shared/models/FilterPageable';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { handleFilterPageable } from 'src/app/shared/utils/HttpParamsUtils';
+import { environment } from 'src/environments/environment';
 import { Client } from '../../../shared/models/Client';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { Client } from '../../../shared/models/Client';
 })
 export class ClientService {
 
-  private url: string = "http://localhost:8080/v1/client";
+  private url: string = `${environment.baseUrl}/v1/client`;
 
   constructor(private httpClient: HttpClient) { }
 
