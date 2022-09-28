@@ -5,7 +5,7 @@ import { FormServiceOrderComponent } from './components/form-service-order/form-
 import { ServiceOrderComponent } from './service-order.component';
 
 const routes: Routes = [
-  { path: 'service-order', component: ServiceOrderComponent}, //, canActivate: [AuthGuardService] 
+  { path: '', component: ServiceOrderComponent}, //, canActivate: [AuthGuardService] 
   { path: 'add-service-order', component: FormServiceOrderComponent, canActivate: [AuthGuardService] }
 ];
 

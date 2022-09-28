@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { ConfirmDialogModule } from '../components/confirm-dialog/confirm-dialog.module';
 import { PaginationTableModule } from '../components/pagination-table/pagination-table.module';
-import { ItemMenu } from '../components/item-menu/models/ItemMenu';
-import { ItemMenuComponent } from '../components/item-menu/item-menu.component';
+import { ItemMenuModule } from '../components/item-menu/item-menu.module';
 
 @NgModule({
+  declarations: [],
   imports: [
     CommonModule,
     ConfirmDialogModule,
-    PaginationTableModule
+    PaginationTableModule,
+    ItemMenuModule
   ], 
   exports: [
     ConfirmDialogModule,
     PaginationTableModule,
+    ItemMenuModule
   ]
 })
 export class SharedModule { }

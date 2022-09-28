@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ConfirmDialogComponent } from './confirm-dialog.component';
+import { ItemMenuComponent } from './item-menu.component';
 import { AngularMaterialModule } from '../../modules/angular-material.module';
 
 @NgModule({
   declarations: [
-    ConfirmDialogComponent
+    ItemMenuComponent
   ],
   imports: [
     AngularMaterialModule,
     CommonModule
   ],
   exports: [
-    ConfirmDialogComponent
+    ItemMenuComponent
   ]
 })
-export class ConfirmDialogModule { }
+export class ItemMenuModule { }

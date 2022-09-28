@@ -20,10 +20,12 @@ import { NavigationRoutingModule } from './core/navigation-routing.module';
 import { NavigationCancel, RouterModule } from '@angular/router';
 import { NavigationComponent } from './core/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
+import { EquipmentComponent } from './modules/equipment/equipment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    EquipmentComponent,
   ],
   imports: [
     BrowserModule,
