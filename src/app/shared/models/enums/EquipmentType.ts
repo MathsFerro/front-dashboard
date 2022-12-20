@@ -1,4 +1,5 @@
 export enum EquipmentType {
+  NENHUM = "NENHUM",
   COMPUTADOR = "COMPUTADOR", 
   NOTEBOOK = "NOTEBOOK", 
   MONITOR = "MONITOR",

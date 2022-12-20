@@ -1,35 +1,14 @@
-<!--
-<mat-card class="example-card">
-  <mat-card-title-group>
-    <mat-card-title>	 
-      Ordem de Serviço
-    </mat-card-title>
-    <button mat-raised-button color="primary" class="bg-success" routerLink="/service-order/add-service-order">
-      Criar nova O.S 
-    </button>
-  </mat-card-title-group>  
-</mat-card>
--->
-
-
 <div class="d-flex align-items-center">
   <h1 style="margin: 0px;">	 
     Ordem de Serviço
   </h1>
-  <button mat-raised-button  class="bg-success d-flex align-items-center container-add-button"  routerLink="/service-order/add-service-order">
+  <button mat-raised-button  class="bg-success d-flex align-items-center container-add-button" routerLink="/service-order/add-service-order">
     <span>Adicionar</span> 
     <mat-icon>add</mat-icon>
   </button>
 </div>
 <br/>
 
-<app-search-service-order 
-  (formSearch)="handleSearch($event)"
-></app-search-service-order>
-<app-table-service-order 
-  [dataSource]="data.content"  
-></app-table-service-order>
-<app-pagination-table
-(currentPage)="searchByPage($event)"
-[pageable]="data"
-></app-pagination-table>
+<app-search-service-order (formSearch)="handleSearch($event)"></app-search-service-order>
+<app-table-service-order [dataSource]="data.content"  ></app-table-service-order>
+<app-pagination-table (currentPage)="searchByPage($event)"[pageable]="data"></app-pagination-table>

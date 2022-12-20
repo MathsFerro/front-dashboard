@@ -1,0 +1,79 @@
+<form (change)="sendChanges()" [formGroup]="formGroup">
+  <mat-expansion-panel [expanded]="true" class="mt-1">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title>
+        Cliente: <strong style="margin-left:5px;">{{ this.formGroup.value.client.name }}</strong>
+      </mat-panel-title>
+  <!--
+      <mat-panel-description>
+        {{ this.formGroup.value.client.name }}
+      </mat-panel-description>
+  -->
+    </mat-expansion-panel-header>
+    <div class="row" formGroupName="client">
+      <!-- <mat-form-field appearance="outline" class="col">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="" autoComplete='none' [matAutocomplete]="auto1" formControlName="name" (ngModelChange)="findClientsByName($event)" >
+        <button tabindex="-1" name="f1" *ngIf="this.formGroup.value.client.name" matSuffix mat-icon-button aria-label="Clear" (click)="clearClientFields()" >
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-icon *ngIf="!this.formGroup.value.client.name" matSuffix>person</mat-icon>
+        <mat-autocomplete autoActiveFirstOption #auto1 (optionSelected)="changeClient($event.option.value)">
+          <mat-option *ngFor="let option of clientsRegistereds" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+    
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Whats / Telefone</mat-label>
+        <input matInput placeholder="" type="number"  formControlName="phoneNumber" autocomplete="off">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    
+    
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="" formControlName="email"  autoComplete='none'>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="col">
+        <mat-label>CPF / CNPJ</mat-label>
+        <input matInput placeholder="" type="number"  formControlName="cpfCnpj" autoComplete='none'>
+        <mat-icon matSuffix>assignment_ind</mat-icon>
+      </mat-form-field>
+      <div class="w-100"></div>
+  
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>CEP</mat-label>
+        <input matInput placeholder="" (ngModelChange)="findCep()" [mask]=cepMask formControlName="cep"  autoComplete='none'>
+        <mat-icon matSuffix>place</mat-icon>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Cidade</mat-label>
+        <input matInput placeholder="" formControlName="city" autoComplete='none'>
+        <mat-icon matSuffix>location_city</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Estado</mat-label>
+        <input matInput placeholder="" formControlName="uf" autoComplete='none'>
+        <mat-icon matSuffix>location_city</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Logradouro</mat-label>
+        <input matInput placeholder="" formControlName="logradouro" autoComplete='none'>
+        <mat-icon matSuffix>call_merge</mat-icon>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="col" formGroupName="address">
+        <mat-label>Complemento</mat-label>
+        <input matInput placeholder="" formControlName="complement" autoComplete='none'>
+        <mat-icon matSuffix>home</mat-icon>
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+</form>

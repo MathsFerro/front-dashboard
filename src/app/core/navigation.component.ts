@@ -40,11 +40,11 @@ export class NavigationComponent implements OnInit {
   }
 
   buildMenuItems() {
-    this.menuItems = [
-      { iconName: "dashboard", routerLink: "/dashboard", value: 1 },
+    this.menuItems = [  
+      // { iconName: "dashboard", routerLink: "/dashboard", value: 1 },
       { iconName: "insert_drive_file", routerLink: "/service-order", value: 2 },
       { iconName: "desktop_windows", routerLink: "/equipment", value: 3 },
-      { iconName: "people", routerLink:"/client", value: 4 }
+      // { iconName: "people", routerLink:"/client", value: 4 }
     ];
   }
 

@@ -1,0 +1,42 @@
+
+.back-icon {
+  margin-right: 10px;
+  cursor: pointer;
+  
+  transition: filter .3s;
+  &:hover {
+    filter: brightness(70%);
+  }
+}
+
+.actions {
+  margin-top: 5px;
+  display: flex;
+  justify-content: end;
+  
+  .custom-container-button {
+    margin-right: 10px;
+  
+    .custom-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+    }
+    .view {
+      mat-icon {
+        margin-bottom: 1px;
+        margin-left: 8px;     
+      }
+    }
+  }
+
+  .container-button-save {
+    .save-button {
+      mat-icon {
+        margin-bottom: 1px;
+        margin-left: 8px;
+      }
+    }
+  }
+}

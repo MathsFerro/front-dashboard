@@ -1,0 +1,42 @@
+<form (change)="sendChanges()" [formGroup]="formGroup">
+  <mat-expansion-panel [expanded]="true" class="mt-1">
+    <mat-expansion-panel-header tabindex="-1" name="f1">
+      <mat-panel-title>
+        Equipamento: <strong style="margin-left:5px;">{{ this.formGroup.value.equipment.description }}</strong>
+      </mat-panel-title>
+  <!--
+      <mat-panel-description>
+        {{ this.formGroup.value.equipment.description }}
+      </mat-panel-description>
+  -->
+    </mat-expansion-panel-header>
+    <div class="row" formGroupName="equipment">
+      <!-- <mat-form-field appearance="outline" class="col">
+        <mat-label>Descrição</mat-label>
+        <input matInput  placeholder=""  [matAutocomplete]="auto2" formControlName="description" autoComplete='none' (ngModelChange)="handleEquipmentChange($event)">
+        <mat-icon matSuffix>subject</mat-icon>
+        
+        <mat-autocomplete  autoActiveFirstOption #auto2 (optionSelected)="changeEquipment($event.option.value)">
+          <mat-option *ngFor="let option of equipmentClientList" [value]="option">
+            {{option.description}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>  -->
+  
+      <mat-form-field appearance="outline" class="col-lg-2" >
+        <mat-label>Número de Série</mat-label>
+        <input matInput placeholder="" formControlName="serialNumber" autoComplete='none'>
+        <mat-icon matSuffix>desktop_windows</mat-icon>
+      </mat-form-field>  
+    
+      <mat-form-field appearance="outline" class="col-lg-2">
+        <mat-label>Tipo do Equipamento</mat-label>
+        <mat-select formControlName="equipmentType">
+          <mat-option *ngFor="let type of equipmentTypeList" [value]="type.key">
+            {{type.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>    
+    </div>
+  </mat-expansion-panel>
+</form>

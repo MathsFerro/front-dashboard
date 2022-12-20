@@ -15,10 +15,23 @@ import { TableServiceOrderComponent } from './components/table-service-order/tab
 import { PaginationTableModule } from 'src/app/shared/components/pagination-table/pagination-table.module';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { EquipmentService } from '../equipment/services/equipment.service';
+import { NewServiceOrderComponent } from './pages/new-service-order/new-service-order.component';
+import { EditServiceOrderComponent } from './pages/edit-service-order/edit-service-order.component';
+import { FormClientComponent } from './components/form-client/form-client.component';
+import { FormEquipmentComponent } from './components/form-equipment/form-equipment.component';
 
 
 @NgModule({
-  declarations: [ServiceOrderComponent, FormServiceOrderComponent, DialogAnnotationsComponent, SearchServiceOrderComponent, TableServiceOrderComponent],
+  declarations: [
+    ServiceOrderComponent, 
+    FormServiceOrderComponent, 
+    DialogAnnotationsComponent, 
+    SearchServiceOrderComponent, 
+    TableServiceOrderComponent, 
+    NewServiceOrderComponent,
+    EditServiceOrderComponent,
+    FormClientComponent,
+    FormEquipmentComponent],
   imports: [
     CommonModule,
     ServiceOrderRoutingModule,

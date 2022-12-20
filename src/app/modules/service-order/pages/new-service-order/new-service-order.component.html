@@ -1,0 +1,34 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center">
+    <mat-icon class="back-icon" routerLink="/service-order">arrow_back</mat-icon> 
+    <h1 style="margin: 0px;">	 
+      Nova Ordem de Serviço
+    </h1>
+  </div> 
+  <!-- <mat-icon (click)="openModalAnnotations()" class="button-notes">notes</mat-icon> -->
+</div>
+<br/>
+
+<app-form-client (changes)="handleClientFormChanges($event)"></app-form-client>
+<app-form-equipment (changes)="handleEquipmentFormChanges($event)"></app-form-equipment>
+<app-form-service-order></app-form-service-order>
+
+<div class="actions">
+  <!-- <button mat-raised-button color="primary" class="custom-container-button" (click)="openModalConfirmClearForm()" type="button">
+    <div class="d-flex align-items-center custom-button">
+      <mat-icon>delete</mat-icon>
+    </div>
+  </button> -->
+  <button mat-raised-button class=" bg-primary custom-container-button"  type="button">
+    <div class="d-flex align-items-center custom-button view">
+      Imprimir
+      <mat-icon>print</mat-icon>
+    </div>
+  </button>
+  <button [disabled]="false" mat-raised-button class="bg-success container-button-save" (click)="onSubmit()">
+    <div class="d-flex align-items-center save-button">
+      Salvar
+      <mat-icon>save</mat-icon>
+    </div>
+  </button>
+</div>
