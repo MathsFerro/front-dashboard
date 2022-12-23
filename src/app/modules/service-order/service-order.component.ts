@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
 import { FilterPageable } from 'src/app/shared/models/FilterPageable';
+import { FilterSearchOrder } from 'src/app/shared/models/FilterSearchOrder';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
 import { FilterServiceOrder } from './models/FilterServiceOrder';
@@ -12,47 +14,26 @@ import { ServiceOrderService } from './services/service-order.service';
   styleUrls: ['./service-order.component.scss']
 })
 export class ServiceOrderComponent implements OnInit {
-
   public data = new Pageable<ServiceOrder[]>();
-  private filter: FilterPageable = {
-    page: 0,
-    size: 10,
-    totalElements: 0,
-    totalPages: 0
-  };
+  private initialPageableFilter: FilterPageable;
 
   constructor(
     private service: ServiceOrderService
-  ) {}
+  ) {
+    this.initialPageableFilter = {
+      page: 0,
+      size: 10,
+      totalElements: 0,
+      totalPages: 0
+    };
+  }
 
   ngOnInit(): void {
   }
-  
-  searchByPage(currentPage: number) {
-    this.filter.page = currentPage;
-    this.findAll();
-  }
 
-  handleSearch(formServiceOrder: any) {
-    console.log(formServiceOrder);
-    // if(formServiceOrder!=null) {
-    //   return this.findAllByFilter(formServiceOrder);
-    // }
-
-    return this.findAll();
-  }
-
-  findAllByFilter(formServiceOrder: FilterServiceOrder) {
-    this.service.findAllByFilter(formServiceOrder, this.filter).subscribe((data) => console.log(data));
-  
-  }
-
-  findAll() {
-    this.service.findAllPageable(this.filter).subscribe(resp => {
-
-      this.data = resp;
-      console.log(this.data);
-    });
-
+  public searchByFilter(filterServiceOrder: FilterSearchOrder) {
+    this.service.findAllByFilter(filterServiceOrder, this.initialPageableFilter).subscribe(resp => {
+      console.log("Resp: ", resp);
+    })
   }
 }

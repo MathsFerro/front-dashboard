@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterPageable } from 'src/app/shared/models/FilterPageable';
+import { FilterSearchOrder } from 'src/app/shared/models/FilterSearchOrder';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
 import { handleFilterPageable } from 'src/app/shared/utils/HttpParamsUtils';
@@ -12,8 +13,7 @@ import { FilterServiceOrder } from '../models/FilterServiceOrder';
   providedIn: 'root'
 })
 export class ServiceOrderService {
-
-  private url: string = `${environment.baseUrl}/service-order`;
+  private url: string = `${environment.baseUrl}/order`;
 
   constructor(private http: HttpClient) { }
 
@@ -22,30 +22,22 @@ export class ServiceOrderService {
   }
 
   numberNextOS(): Observable<number> {
-    return this.http.get<number>(`${this.url}/number-next-os`);
+    return this.http.get<number>(`${this.url}/number-next`);
   }
 
-  findAllPageable(filter: FilterPageable): Observable<Pageable<ServiceOrder[]>> {
-    const params = handleFilterPageable(filter);
-    return this.http.get<Pageable<ServiceOrder[]>>(`${this.url}`, { params });
-  }
-
-  findAllByFilter(filter: FilterServiceOrder, pageable: FilterPageable): Observable<Pageable<ServiceOrder[]>> {
-    console.log(filter.serviceOrderStatus.values);
-    console.log(filter);
-    const serviceOrderStatusValue = filter.serviceOrderStatus.map(status => status.value);
+  findAllByFilter(filter: FilterSearchOrder, pageable: FilterPageable): Observable<Pageable<ServiceOrder[]>> {
+    // console.log(filter.serviceOrderStatus.values);
+    // console.log(filter);
+    // const serviceOrderStatusValue = filter.serviceOrderStatus.map(status => status.value);
     const params = new HttpParams()
       .set('name', String(filter.name))
-      .set('numberServiceOrder', String(filter.numberServiceOrder))
+      .set('numberOrder', Number(filter.numberOrder))
       .set('serialNumber', String(filter.serialNumber))
       .set('equipmentType', String(filter.equipmentType))
-      .set('serviceOrderStatus', String(serviceOrderStatusValue.join(", ")))
+      // .set('orderStatus', String(serviceOrderStatusValue.join(", ")))
       .set('page', String(pageable.page))
       .set('size', String(pageable.size));
-
     console.log("params:", params);
-    return this.http.get<Pageable<ServiceOrder[]>>(`${this.url}/find-all-by-filter`, { params })
+    return this.http.get<Pageable<ServiceOrder[]>>(`${this.url}`, { params })
   }
-
-
 }

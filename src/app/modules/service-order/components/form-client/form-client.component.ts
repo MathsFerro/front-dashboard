@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CepService } from 'src/app/shared/services/cep.service';
 import { MaskUtils } from 'src/app/shared/utils/MaskUtils';
@@ -59,7 +59,7 @@ export class FormClientComponent implements OnInit {
       'client': this.fb.group({
         'name': '',
         'phoneNumber': '',
-        'email': '',
+        'email': ['', Validators.required],
         'cpfCnpj': '',
         'address': this.fb.group({
           'cep': '',

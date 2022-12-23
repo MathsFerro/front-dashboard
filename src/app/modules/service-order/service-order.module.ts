@@ -19,6 +19,7 @@ import { NewServiceOrderComponent } from './pages/new-service-order/new-service-
 import { EditServiceOrderComponent } from './pages/edit-service-order/edit-service-order.component';
 import { FormClientComponent } from './components/form-client/form-client.component';
 import { FormEquipmentComponent } from './components/form-equipment/form-equipment.component';
+import { FormInitialInfoServiceOrderComponent } from './components/form-initial-info-service-order/form-initial-info-service-order.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormEquipmentComponent } from './components/form-equipment/form-equipme
     NewServiceOrderComponent,
     EditServiceOrderComponent,
     FormClientComponent,
-    FormEquipmentComponent],
+    FormEquipmentComponent,
+    FormInitialInfoServiceOrderComponent],
   imports: [
     CommonModule,
     ServiceOrderRoutingModule,

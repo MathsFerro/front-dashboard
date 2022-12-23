@@ -16,56 +16,33 @@ import { ServiceOrderService } from '../../services/service-order.service';
   styleUrls: ['./search-service-order.component.scss']
 })
 export class SearchServiceOrderComponent implements OnInit {
-
   @Output() formSearch = new EventEmitter();
 
   public formGroup: FormGroup;
   public equipmentTypeList: any[] = [];
-
-  serviceOrderStatusList: ServiceOrderStatus[] = statusList; 
+  
+  orderStatusList: ServiceOrderStatus[] = statusList; 
   
   constructor(
     private service: ServiceOrderService,
     private dialog: MatDialog,
     private toastr: ToastrService,
     private fb: FormBuilder
-  ) { }
+    ) { }
 
   ngOnInit(): void {
     this.loadEquipmentTypeList();
     this.buildForm();
   }
 
-  buildForm() {
-    this.formGroup = this.fb.group({
-      'numberServiceOrder': null,
-      'serviceOrderStatus': this.fb.array([]),
-      'serialNumber': null,
-      'equipmentType': null,
-      'name': null,
-      'enteredIn': this.fb.group({
-        'start': null,
-        'end': null,
-      }),
-      'exitIn': this.fb.group({
-        'start': null,
-        'end': null,
-      })
-    });
+  get orderStatusForm(): FormArray {
+    return this.formGroup.controls['orderStatus'] as FormArray;
   }
-
+  
   loadEquipmentTypeList() {
     Object.entries(EquipmentType).forEach(([key, value]) => {
       this.equipmentTypeList.push({ key, value });
     });
-  }
-
-  get serviceOrderStatusForm(): FormArray {
-    return this.formGroup.controls['serviceOrderStatus'] as FormArray;
-  }
-
-  clicked(ev: any) {
-
   }
 
   search() {
@@ -75,16 +52,15 @@ export class SearchServiceOrderComponent implements OnInit {
     }
 
     this.handleServiceOrderStatus();
-    console.log(this.formGroup.value);
     this.formSearch.emit(this.formGroup.value);
   }
 
   handleServiceOrderStatus() {
-    this.serviceOrderStatusForm.clear();
+    this.orderStatusForm.clear();
     
-    this.serviceOrderStatusList.map(item => {
+    this.orderStatusList.map(item => {
       if(item.selected) {
-        this.serviceOrderStatusForm.push(this.fb.group({
+        this.orderStatusForm.push(this.fb.group({
           'value': item.value
         }));
       }
@@ -99,6 +75,24 @@ export class SearchServiceOrderComponent implements OnInit {
       if(resp) {
         this.buildForm();
       }
+    });
+  }
+
+  private buildForm() {
+    this.formGroup = this.fb.group({
+      'numberOrder': null,
+      'orderStatus': this.fb.array([]),
+      'serialNumber': null,
+      'equipmentType': null,
+      'name': null,
+      'enteredIn': this.fb.group({
+        'start': null,
+        'end': null,
+      }),
+      'exitIn': this.fb.group({
+        'start': null,
+        'end': null,
+      })
     });
   }
 }

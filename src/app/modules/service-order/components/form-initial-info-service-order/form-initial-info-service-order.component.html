@@ -2,19 +2,19 @@
   <mat-expansion-panel [expanded]="true" class="mt-1">
     <mat-expansion-panel-header tabindex="-1" name="f1">
       <mat-panel-title>
-        Defeito
+        Número OS: <strong style="margin-left:5px;">{{ this.formGroup.value.numberOrder }}</strong>
       </mat-panel-title>
       <mat-panel-description>
-        Acessórios / Diagnostico
+        Data Entrada / Data Saída / Garantia
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="row">
       <mat-form-field appearance="outline" class="col">
-        <mat-label>Acessórios</mat-label>
-        <textarea matInput formControlName="accessory" autoComplete='none'></textarea>
+        <mat-label>Número OS</mat-label>
+        <input matInput formControlName="numberOrder" autoComplete='none' type="number" />
       </mat-form-field>
-  
-      <div class="w-100"></div>
+
+      <!-- <div class="w-100"></div>
   
       <mat-form-field appearance="outline" class="col">
         <mat-label>Defeito</mat-label>
@@ -26,7 +26,7 @@
       <mat-form-field appearance="outline" class="col">
         <mat-label>Diagnostico</mat-label>
         <textarea matInput formControlName="diagnostic"></textarea>        
-      </mat-form-field>   
+      </mat-form-field>    -->
     </div> 
   </mat-expansion-panel>
 </form>

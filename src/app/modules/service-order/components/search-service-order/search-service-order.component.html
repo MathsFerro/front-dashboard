@@ -6,7 +6,6 @@
   </mat-expansion-panel-header>
 
   <form class="row" [formGroup]="formGroup">
-    
     <mat-form-field appearance="outline" class="col-lg-6">
       <mat-label>Nome do Cliente</mat-label>
       <input matInput formControlName="name">
@@ -15,7 +14,7 @@
 
     <mat-form-field appearance="outline" class="col-lg-3" >
       <mat-label>NR. da OS</mat-label>
-      <input matInput formControlName="numberServiceOrder" >
+      <input matInput formControlName="numberOrder" >
       <mat-icon matSuffix>subject</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline" class="col-lg-3" >
@@ -84,7 +83,7 @@
 
     <mat-chip-list class=" col" aria-label="Color selection">
       <mat-chip 
-        *ngFor="let status of serviceOrderStatusList; index as i" 
+        *ngFor="let status of orderStatusList; index as i" 
         [ngStyle]="{'background-color': [status.color]}"
       >
       <mat-checkbox (change)="status.selected=!status.selected">

@@ -26,11 +26,9 @@ export class FormServiceOrderComponent implements OnInit {
 
   private buildFormGroup(): void {
     this.formGroup = this.fb.group({
-      'order': this.fb.group({
-        'accessory': '',
-        'defect': '',
-        'diagnostic': ''
-      })
+      'accessory': '',
+      'defect': '',
+      'diagnostic': ''
     });
   }
 }
