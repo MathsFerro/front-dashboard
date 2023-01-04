@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Order } from 'src/app/shared/models/Order';
 import { ServiceOrderService } from '../../services/service-order.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ServiceOrderService } from '../../services/service-order.service';
   styleUrls: ['./edit-service-order.component.scss']
 })
 export class EditServiceOrderComponent implements OnInit {
-
+  public order: Order;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,9 +25,7 @@ export class EditServiceOrderComponent implements OnInit {
         this.router.navigate(['/service-order'])
         return;
       }
-
       this.findById(orderId);
-      console.log(resp)
     })
   }
 
@@ -35,7 +34,12 @@ export class EditServiceOrderComponent implements OnInit {
 
   private findById(orderId: String) {
     this.orderService.findByIdWithJoins(orderId).subscribe(resp => {
-      console.log(resp);
+      this.order = resp;
+    }, error => {
+      this.toastr.error("Falha ao carregar a Ordem de Serviço");
+      this.router.navigate(['/service-order']);
     });
   }
+
+  // Enviar dados para os forms
 }
