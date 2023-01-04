@@ -4,10 +4,7 @@ import { LoginComponent } from './core/login/login.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  },
+    
 ];
 
 @NgModule({

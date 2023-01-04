@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {  
 
   // TODO Change to false
-  public authenticated: boolean = true;
+  public authenticated: boolean = false;
 
   constructor() {
     console.log(this.authenticated);
