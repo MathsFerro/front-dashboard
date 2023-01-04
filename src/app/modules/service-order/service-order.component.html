@@ -3,12 +3,16 @@
     Ordem de Serviço
   </h1>
   <button mat-raised-button  class="bg-success d-flex align-items-center container-add-button" routerLink="/service-order/add-service-order">
-    <span>Adicionar</span> 
+    <span>Nova</span> 
     <mat-icon>add</mat-icon>
+  </button>
+  <button mat-raised-button  class="bg-primary d-flex align-items-center container-add-button" (click)="openModalToSearchOS()">
+    <span>Buscar</span> 
+
   </button>
 </div>
 <br/>
 
 <app-search-service-order (formSearch)="searchByFilter($event)"></app-search-service-order>
-<app-table-service-order [dataSource]="data.content"  ></app-table-service-order>
+<app-table-service-order [dataSource]="data.content"></app-table-service-order>
 <!-- <app-pagination-table (currentPage)="searchByPage($event)"[pageable]="data"></app-pagination-table> -->

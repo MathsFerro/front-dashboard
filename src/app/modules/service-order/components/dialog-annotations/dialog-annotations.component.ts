@@ -8,7 +8,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog-annotations.component.scss']
 })
 export class DialogAnnotationsComponent implements OnInit {
-
   formGroup: FormGroup;
 
   constructor(

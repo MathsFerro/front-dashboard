@@ -4,12 +4,13 @@
     <h1 style="margin: 0px;">	 
       Nova Ordem de Serviço
     </h1>
+    <mat-card-subtitle style="height: 17px; margin-left: 5px;"><strong>Nr. {{ nextNumberOS }}</strong></mat-card-subtitle>
   </div> 
-  <!-- <mat-icon (click)="openModalAnnotations()" class="button-notes">notes</mat-icon> -->
+  <mat-icon  class="button-notes">notes</mat-icon>
 </div>
 <br/>
 
-<app-form-initial-info-service-order></app-form-initial-info-service-order>
+<!-- <app-form-initial-info-service-order></app-form-initial-info-service-order> -->
 <app-form-client (changes)="handleClientFormChanges($event)"></app-form-client>
 <app-form-equipment (changes)="handleEquipmentFormChanges($event)"></app-form-equipment>
 <app-form-service-order></app-form-service-order>

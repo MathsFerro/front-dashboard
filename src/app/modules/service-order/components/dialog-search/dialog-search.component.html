@@ -1,0 +1,18 @@
+<div class="w-100">
+  <div mat-dialog-content>
+    <div class="row">
+      <form [formGroup]="formGroup">
+        <mat-form-field class="col">
+          <mat-label>Número da OS</mat-label>
+          <input matInput placeholder="" autoComplete='none' [matAutocomplete]="auto1" formControlName="numberOrder" (ngModelChange)="findOrders()" >
+          <mat-autocomplete autoActiveFirstOption #auto1 (optionSelected)="selectedOption($event.option.value)">
+            <mat-option *ngFor="let order of orders" [value]="order">
+              {{order.numberOrder}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+     </div>
+  </div>
+
+</div>

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { EquipmentType } from 'src/app/shared/models/enums/EquipmentType';
 import { FilterPageable } from 'src/app/shared/models/FilterPageable';
 import { FilterSearchOrder } from 'src/app/shared/models/FilterSearchOrder';
 import { Pageable } from 'src/app/shared/models/Pageable';
 import { ServiceOrder } from 'src/app/shared/models/ServiceOrder';
+import { DialogSearchComponent } from './components/dialog-search/dialog-search.component';
 import { FilterServiceOrder } from './models/FilterServiceOrder';
 import { ServiceOrderService } from './services/service-order.service';
 
@@ -18,6 +20,7 @@ export class ServiceOrderComponent implements OnInit {
   private initialPageableFilter: FilterPageable;
 
   constructor(
+    private modal: MatDialog,
     private service: ServiceOrderService
   ) {
     this.initialPageableFilter = {
@@ -35,5 +38,9 @@ export class ServiceOrderComponent implements OnInit {
     this.service.findAllByFilter(filterServiceOrder, this.initialPageableFilter).subscribe(resp => {
       console.log("Resp: ", resp);
     })
+  }
+
+  public openModalToSearchOS() {
+    this.modal.open(DialogSearchComponent, { data: {} });
   }
 }

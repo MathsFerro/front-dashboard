@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServiceOrderService } from '../../services/service-order.service';
 
 @Component({
   selector: 'app-new-service-order',
@@ -8,14 +9,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NewServiceOrderComponent implements OnInit {
   public formGroup: FormGroup;
-  
+  public nextNumberOS: number;
+
   constructor(
+    private orderService: ServiceOrderService,
     private fb: FormBuilder
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {
+    this.orderService.numberNextOS().subscribe(resp => this.nextNumberOS = resp);
   }
 
   public handleClientFormChanges(event: FormGroup) {
